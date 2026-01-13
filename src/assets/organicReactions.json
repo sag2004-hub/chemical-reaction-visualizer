@@ -1,0 +1,76 @@
+{
+  "reactions": [
+    {
+      "id": "organic-1",
+      "name": "Methane Combustion",
+      "type": "combustion",
+      "category": "organic",
+      "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
+      "description": "Complete combustion of methane in oxygen to produce carbon dioxide and water.",
+      "details": "This is an exothermic reaction that releases heat. Methane reacts with oxygen to form carbon dioxide and water vapor.",
+      "conditions": "Presence of oxygen and ignition source",
+      "catalyst": "None required",
+      "temperature": "High temperature (ignition)",
+      "energy": "Exothermic (ΔH = -890 kJ/mol)",
+      "safety": "Produces heat and can cause fires. Ensure proper ventilation.",
+      "applications": [
+        "Natural gas heating",
+        "Power generation",
+        "Rocket fuel"
+      ],
+      "compounds": {
+        "reactants": [
+          {
+            "name": "Methane",
+            "formula": "CH₄",
+            "color": "#3b82f6"
+          },
+          {
+            "name": "Oxygen",
+            "formula": "O₂",
+            "color": "#ef4444"
+          }
+        ],
+        "products": [
+          {
+            "name": "Carbon Dioxide",
+            "formula": "CO₂",
+            "color": "#10b981"
+          },
+          {
+            "name": "Water",
+            "formula": "H₂O",
+            "color": "#0ea5e9"
+          }
+        ]
+      },
+      "steps": [
+        "Methane and Oxygen molecules approach",
+        "C-H bonds break in methane",
+        "O=O bonds break in oxygen",
+        "New C=O bonds form to make CO₂",
+        "New O-H bonds form to make H₂O"
+      ],
+      "mechanism": "Free radical chain reaction involving initiation, propagation, and termination steps."
+    },
+    {
+      "id": "organic-2",
+      "name": "Ethene Hydrogenation",
+      "type": "addition",
+      "category": "organic",
+      "equation": "CH₂=CH₂ + H₂ → CH₃-CH₃",
+      "description": "Addition of hydrogen to ethene to form ethane using a catalyst.",
+      "details": "This reaction adds hydrogen across the double bond of ethene, saturating it to form ethane.",
+      "conditions": "Presence of hydrogen gas",
+      "catalyst": "Nickel, Platinum, or Palladium",
+      "temperature": "150-300°C",
+      "energy": "Exothermic (ΔH = -137 kJ/mol)",
+      "safety": "Hydrogen is flammable. Use proper catalyst handling procedures.",
+      "applications": [
+        "Margarine production",
+        "Petroleum refining",
+        "Organic synthesis"
+      ]
+    }
+  ]
+}

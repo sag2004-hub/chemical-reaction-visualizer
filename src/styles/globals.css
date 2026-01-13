@@ -1,0 +1,96 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.reaction-container {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.animation-area {
+  min-height: 400px;
+  border: 2px dashed #d1d5db;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  background: #f9fafb;
+}
+
+.compound {
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.compound-reactant {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.compound-product {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.reaction-arrow {
+  font-size: 2rem;
+  margin: 0 20px;
+  color: #6b7280;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.element-card {
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.element-card:hover {
+  transform: translateY(-5px);
+}
+
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  gap: 4px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  
+  .periodic-table {
+    grid-template-columns: repeat(9, 1fr);
+  }
+}

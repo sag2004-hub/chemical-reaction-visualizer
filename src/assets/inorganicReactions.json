@@ -1,0 +1,71 @@
+{
+  "reactions": [
+    {
+      "id": "inorganic-1",
+      "name": "Sodium Chloride Formation",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "2Na + Cl₂ → 2NaCl",
+      "description": "Formation of sodium chloride from sodium metal and chlorine gas.",
+      "details": "This is a highly exothermic reaction where sodium metal reacts violently with chlorine gas to form sodium chloride (table salt).",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic (ΔH = -411 kJ/mol)",
+      "safety": "Reacts violently. Sodium is highly reactive with water. Chlorine is toxic.",
+      "applications": [
+        "Table salt production",
+        "Chemical synthesis",
+        "De-icing roads"
+      ],
+      "compounds": {
+        "reactants": [
+          {
+            "name": "Sodium",
+            "formula": "Na",
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Chlorine",
+            "formula": "Cl₂",
+            "color": "#10b981"
+          }
+        ],
+        "products": [
+          {
+            "name": "Sodium Chloride",
+            "formula": "NaCl",
+            "color": "#8b5cf6"
+          }
+        ]
+      },
+      "steps": [
+        "Sodium atoms approach chlorine molecules",
+        "Electron transfer from Na to Cl",
+        "Formation of Na⁺ and Cl⁻ ions",
+        "Ionic bond formation",
+        "Crystal lattice formation"
+      ],
+      "mechanism": "Electron transfer from sodium to chlorine, forming Na⁺ and Cl⁻ ions that attract each other to form ionic bonds."
+    },
+    {
+      "id": "inorganic-2",
+      "name": "Water Electrolysis",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "2H₂O → 2H₂ + O₂",
+      "description": "Decomposition of water into hydrogen and oxygen gases using electricity.",
+      "details": "Electrical energy splits water molecules into hydrogen and oxygen gases.",
+      "conditions": "Electrical current",
+      "catalyst": "Platinum or other inert electrodes",
+      "temperature": "Room temperature",
+      "energy": "Endothermic (requires energy input)",
+      "safety": "Produces explosive hydrogen gas. Use proper ventilation.",
+      "applications": [
+        "Hydrogen production",
+        "Fuel cells",
+        "Spacecraft life support"
+      ]
+    }
+  ]
+}
