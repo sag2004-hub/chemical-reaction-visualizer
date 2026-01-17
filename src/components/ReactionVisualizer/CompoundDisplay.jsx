@@ -1,275 +1,488 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useElementAnimation } from '../../hooks/useAnimation';
-import { calculateMolarMass } from '../../utils/validationUtils';
+import { 
+  Atom, 
+  Zap, 
+  Hash, 
+  Thermometer, 
+  Beaker,
+  Flame,
+  Droplets,
+  Wind
+} from 'lucide-react';
 
 function CompoundDisplay({ 
   compound, 
   type = 'reactant',
   isActive = false,
-  showDetails = false,
-  onSelect,
-  animationProgress = 0 
+  isTransition = false,
+  animationProgress = 0,
+  size = 'medium',
+  onClick
 }) {
-  const { position, scale, pulse } = useElementAnimation(compound?.formula || '');
   
-  const containerStyle = {
-    ...styles.container,
-    backgroundColor: type === 'reactant' ? '#dbeafe' : '#d1fae5',
-    borderColor: type === 'reactant' ? '#3b82f6' : '#10b981',
-    transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-    opacity: isActive ? 1 : 0.7
+  const getCompoundTypeColor = () => {
+    if (isTransition) return '#c084fc'; // Purple for transition state
+    if (type === 'reactant') return '#60a5fa'; // Blue for reactants
+    if (type === 'intermediate') return '#fbbf24'; // Yellow for intermediates
+    return '#34d399'; // Green for products
   };
 
-  const handleClick = () => {
-    if (onSelect) {
-      onSelect(compound);
-      pulse(1);
+  const getSizeStyles = () => {
+    const sizes = {
+      small: {
+        container: { padding: '0.8rem', minWidth: '140px' },
+        formula: { fontSize: '1.5rem' },
+        name: { fontSize: '0.75rem' }
+      },
+      medium: {
+        container: { padding: '1.2rem', minWidth: '180px' },
+        formula: { fontSize: '2rem' },
+        name: { fontSize: '0.875rem' }
+      },
+      large: {
+        container: { padding: '1.5rem', minWidth: '220px' },
+        formula: { fontSize: '2.5rem' },
+        name: { fontSize: '1rem' }
+      }
+    };
+    return sizes[size] || sizes.medium;
+  };
+
+  const sizeStyles = getSizeStyles();
+  const typeColor = getCompoundTypeColor();
+
+  const containerVariants = {
+    initial: { scale: 0.9, opacity: 0 },
+    animate: { 
+      scale: 1, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20
+      }
+    },
+    hover: {
+      scale: 1.05,
+      y: -5,
+      borderColor: `${typeColor}80`,
+      boxShadow: `0 15px 30px ${typeColor}20`,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 25
+      }
+    },
+    active: {
+      scale: 1.02,
+      borderColor: typeColor,
+      boxShadow: `0 0 0 3px ${typeColor}40, 0 20px 40px ${typeColor}15`,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }
     }
+  };
+
+  const renderChemicalBonds = () => {
+    const bonds = compound?.bonds || 0;
+    const bondElements = [];
+    
+    for (let i = 0; i < bonds; i++) {
+      const angle = (i / bonds) * Math.PI * 2;
+      const length = 40;
+      const x = Math.cos(angle) * length;
+      const y = Math.sin(angle) * length;
+      
+      bondElements.push(
+        <motion.div
+          key={`bond-${i}`}
+          style={{
+            ...styles.bond,
+            background: `linear-gradient(90deg, transparent, ${typeColor}40, transparent)`,
+            left: '50%',
+            top: '50%',
+            width: `${length * 2}px`,
+            transform: `translate(-50%, -50%) rotate(${angle}rad)`
+          }}
+          animate={{
+            opacity: [0.3, 0.8, 0.3],
+            scale: [0.9, 1.1, 0.9]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            delay: i * 0.2,
+            ease: "easeInOut"
+          }}
+        />
+      );
+    }
+    
+    return bondElements;
+  };
+
+  const renderElectronCloud = () => {
+    const electrons = compound?.electrons || 0;
+    
+    return (
+      <motion.div
+        style={styles.electronCloud}
+        animate={{
+          scale: [1, 1.05, 1],
+          opacity: [0.1, 0.15, 0.1]
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        {/* Electron dots */}
+        {[...Array(Math.min(electrons, 12))].map((_, i) => {
+          const angle = (i / Math.min(electrons, 12)) * Math.PI * 2;
+          const radius = 30 + (i % 2) * 10;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          
+          return (
+            <motion.div
+              key={`electron-${i}`}
+              style={{
+                ...styles.electron,
+                left: `calc(50% + ${x}px)`,
+                top: `calc(50% + ${y}px)`,
+                background: `radial-gradient(circle, ${typeColor}80, ${typeColor}40)`,
+                boxShadow: `0 0 10px ${typeColor}`
+              }}
+              animate={{
+                x: [0, Math.cos(angle + Math.PI/2) * 5, 0],
+                y: [0, Math.sin(angle + Math.PI/2) * 5, 0],
+                scale: [1, 1.3, 1]
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.1,
+                ease: "easeInOut"
+              }}
+            />
+          );
+        })}
+      </motion.div>
+    );
+  };
+
+  const renderStateIcon = () => {
+    const state = compound?.state?.toLowerCase();
+    const icons = {
+      solid: <Hash size={12} />,
+      liquid: <Droplets size={12} />,
+      gas: <Wind size={12} />,
+      aqueous: <Beaker size={12} />,
+      plasma: <Flame size={12} />
+    };
+    
+    return state ? icons[state] || <Thermometer size={12} /> : null;
   };
 
   if (!compound) return null;
 
-  const molarMass = calculateMolarMass(compound.formula);
-
   return (
     <motion.div
-      className="compound-display"
-      style={containerStyle}
-      onClick={handleClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      animate={{
-        y: isActive ? [0, -5, 0] : 0,
-        transition: {
-          duration: 2,
-          repeat: isActive ? Infinity : 0,
-          ease: "easeInOut"
-        }
+      style={{
+        ...styles.container,
+        ...sizeStyles.container,
+        background: `linear-gradient(135deg, ${typeColor}08, ${typeColor}02)`,
+        border: `2px solid ${typeColor}30`,
+        boxShadow: isActive 
+          ? `0 0 0 3px ${typeColor}40, 0 20px 40px ${typeColor}15`
+          : '0 10px 25px rgba(0, 0, 0, 0.2)'
       }}
+      variants={containerVariants}
+      initial="initial"
+      animate={isActive ? "active" : "animate"}
+      whileHover="hover"
+      onClick={onClick}
     >
-      <div className="compound-header" style={styles.header}>
-        <div className="compound-type" style={styles.typeLabel}>
-          {type === 'reactant' ? 'Reactant' : 'Product'}
+      {/* Type Badge */}
+      <div style={{
+        ...styles.typeBadge,
+        background: `${typeColor}20`,
+        borderColor: `${typeColor}40`,
+        color: typeColor
+      }}>
+        {isTransition ? 'Transition' : type.toUpperCase()}
+      </div>
+
+      {/* Active Indicator */}
+      {isActive && (
+        <motion.div
+          style={styles.activeIndicator}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.7, 1, 0.7]
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity
+          }}
+        >
+          <div style={styles.activePulse} />
+        </motion.div>
+      )}
+
+      {/* Chemical Formula */}
+      <div style={{
+        ...styles.formula,
+        ...sizeStyles.formula,
+        color: typeColor,
+        textShadow: `0 0 20px ${typeColor}40`
+      }}>
+        {compound.formula}
+      </div>
+
+      {/* Compound Name */}
+      <div style={{
+        ...styles.name,
+        ...sizeStyles.name,
+        color: '#cbd5e1'
+      }}>
+        {compound.name}
+      </div>
+
+      {/* Compound Details */}
+      <div style={styles.details}>
+        <div style={styles.detailRow}>
+          <div style={styles.detailItem}>
+            <Atom size={14} />
+            <span style={styles.detailLabel}>e⁻:</span>
+            <span style={styles.detailValue}>{compound.electrons || 0}</span>
+          </div>
+          
+          <div style={styles.detailItem}>
+            <Zap size={14} />
+            <span style={styles.detailLabel}>Bonds:</span>
+            <span style={styles.detailValue}>{compound.bonds || 0}</span>
+          </div>
         </div>
-        {isActive && (
-          <div className="active-indicator" style={styles.activeIndicator}>
-            ●
+
+        {compound.state && (
+          <div style={styles.detailItem}>
+            {renderStateIcon()}
+            <span style={styles.detailLabel}>State:</span>
+            <span style={styles.detailValue}>
+              {compound.state.charAt(0).toUpperCase() + compound.state.slice(1)}
+            </span>
+          </div>
+        )}
+
+        {compound.charge !== undefined && compound.charge !== 0 && (
+          <div style={styles.detailItem}>
+            <span style={styles.detailLabel}>Charge:</span>
+            <span style={{
+              ...styles.chargeBadge,
+              background: compound.charge > 0 ? '#f8717120' : '#60a5fa20',
+              color: compound.charge > 0 ? '#f87171' : '#60a5fa',
+              borderColor: compound.charge > 0 ? '#f8717140' : '#60a5fa40'
+            }}>
+              {compound.charge > 0 ? `+${compound.charge}` : compound.charge}
+            </span>
           </div>
         )}
       </div>
-      
-      <div className="compound-formula" style={styles.formula}>
-        {compound.formula}
-      </div>
-      
-      <div className="compound-name" style={styles.name}>
-        {compound.name}
-      </div>
-      
-      {showDetails && (
-        <div className="compound-details" style={styles.details}>
-          <div className="detail-item" style={styles.detailItem}>
-            <span style={styles.detailLabel}>Molar Mass:</span>
-            <span style={styles.detailValue}>{molarMass.toFixed(2)} g/mol</span>
-          </div>
-          
-          {compound.color && (
-            <div className="detail-item" style={styles.detailItem}>
-              <span style={styles.detailLabel}>Color:</span>
-              <span 
-                style={{ 
-                  ...styles.colorIndicator,
-                  backgroundColor: compound.color 
-                }}
-                title={compound.color}
-              />
-            </div>
-          )}
-          
-          {compound.state && (
-            <div className="detail-item" style={styles.detailItem}>
-              <span style={styles.detailLabel}>State:</span>
-              <span style={styles.detailValue}>{compound.state}</span>
-            </div>
-          )}
-          
-          {compound.charge !== undefined && (
-            <div className="detail-item" style={styles.detailItem}>
-              <span style={styles.detailLabel}>Charge:</span>
-              <span style={styles.detailValue}>
-                {compound.charge > 0 ? `+${compound.charge}` : compound.charge}
-              </span>
-            </div>
-          )}
-        </div>
-      )}
-      
-      <div className="compound-atoms" style={styles.atomsContainer}>
-        {renderAtoms(compound.formula, animationProgress)}
+
+      {/* Animated Background Effects */}
+      <div style={styles.backgroundEffects}>
+        {renderChemicalBonds()}
+        {renderElectronCloud()}
+        
+        {/* Particle effects */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            style={{
+              ...styles.particle,
+              background: typeColor,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0, 0.5, 0],
+              scale: [0, 1, 0]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.25,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
       </div>
     </motion.div>
   );
 }
 
-function renderAtoms(formula, progress) {
-  // Simple atom representation
-  const atoms = [];
-  const atomSize = 20;
-  const spacing = 30;
-  
-  // Parse formula for atom counts
-  const atomPattern = /([A-Z][a-z]*)(\d*)/g;
-  let match;
-  let totalAtoms = 0;
-  
-  while ((match = atomPattern.exec(formula)) !== null) {
-    const element = match[1];
-    const count = match[2] ? parseInt(match[2]) : 1;
-    
-    for (let i = 0; i < count; i++) {
-      const angle = (totalAtoms / 10) * Math.PI * 2;
-      const x = Math.cos(angle) * 30 * progress;
-      const y = Math.sin(angle) * 30 * progress;
-      
-      atoms.push(
-        <motion.div
-          key={`${element}-${i}`}
-          style={{
-            ...styles.atom,
-            backgroundColor: getElementColor(element),
-            left: `${50 + x}%`,
-            top: `${50 + y}%`
-          }}
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          title={element}
-        >
-          <span style={styles.atomSymbol}>{element}</span>
-        </motion.div>
-      );
-      
-      totalAtoms++;
-    }
-  }
-  
-  return atoms;
-}
-
-function getElementColor(element) {
-  const colorMap = {
-    H: '#ff6b6b',
-    C: '#333333',
-    O: '#ff4757',
-    N: '#1e90ff',
-    Na: '#ffa502',
-    Cl: '#2ed573',
-    // Add more elements as needed
-  };
-  
-  return colorMap[element] || '#a4b0be';
-}
-
 const styles = {
   container: {
     position: 'relative',
-    padding: '20px',
-    borderRadius: '12px',
-    border: '2px solid',
-    minWidth: '180px',
+    borderRadius: '16px',
     textAlign: 'center',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-    overflow: 'hidden'
-  },
-  header: {
+    overflow: 'hidden',
+    backdropFilter: 'blur(10px)',
+    minHeight: '200px',
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '15px'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  typeLabel: {
-    fontSize: '0.875rem',
-    fontWeight: '600',
-    color: '#4b5563',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em'
+  typeBadge: {
+    position: 'absolute',
+    top: '0.8rem',
+    left: '0.8rem',
+    padding: '0.3rem 0.8rem',
+    borderRadius: '20px',
+    fontSize: '0.7rem',
+    fontWeight: 700,
+    letterSpacing: '0.05em',
+    border: '1px solid',
+    backdropFilter: 'blur(5px)',
+    zIndex: 2
   },
   activeIndicator: {
-    color: '#3b82f6',
-    fontSize: '1.2rem',
-    animation: 'pulse 2s infinite'
+    position: 'absolute',
+    top: '0.8rem',
+    right: '0.8rem',
+    width: '12px',
+    height: '12px',
+    zIndex: 2
+  },
+  activePulse: {
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    background: '#10b981',
+    boxShadow: '0 0 10px #10b981',
+    animation: 'pulse 1.5s infinite'
   },
   formula: {
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    marginBottom: '10px',
+    fontWeight: 800,
+    margin: '1rem 0 0.5rem 0',
     fontFamily: 'Times New Roman, serif',
-    color: '#1f2937'
+    letterSpacing: '1px',
+    zIndex: 2,
+    position: 'relative'
   },
   name: {
-    fontSize: '1rem',
-    color: '#6b7280',
-    marginBottom: '15px',
-    fontWeight: '500'
+    fontWeight: 500,
+    marginBottom: '1rem',
+    opacity: 0.9,
+    zIndex: 2,
+    position: 'relative'
   },
   details: {
-    marginTop: '15px',
-    paddingTop: '15px',
-    borderTop: '1px solid #e5e7eb'
+    width: '100%',
+    padding: '0.8rem',
+    background: 'rgba(15, 23, 42, 0.3)',
+    borderRadius: '10px',
+    borderTop: '1px solid rgba(100, 180, 255, 0.1)',
+    marginTop: '0.5rem',
+    zIndex: 2,
+    position: 'relative'
+  },
+  detailRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '0.5rem'
   },
   detailItem: {
     display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '8px',
-    fontSize: '0.875rem'
+    alignItems: 'center',
+    gap: '0.5rem',
+    fontSize: '0.8rem',
+    color: '#94a3b8',
+    marginBottom: '0.3rem'
   },
   detailLabel: {
-    color: '#6b7280',
-    fontWeight: '500'
+    fontWeight: 500
   },
   detailValue: {
-    color: '#1f2937',
-    fontWeight: '600'
+    fontWeight: 600,
+    color: '#e2e8f0'
   },
-  colorIndicator: {
-    width: '20px',
-    height: '20px',
-    borderRadius: '4px',
-    border: '1px solid #d1d5db'
-  },
-  atomsContainer: {
-    position: 'relative',
-    height: '80px',
-    width: '100%',
-    marginTop: '15px'
-  },
-  atom: {
-    position: 'absolute',
-    width: '30px',
-    height: '30px',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontWeight: 'bold',
+  chargeBadge: {
+    padding: '0.2rem 0.6rem',
+    borderRadius: '12px',
     fontSize: '0.75rem',
-    transform: 'translate(-50%, -50%)',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+    fontWeight: 700,
+    border: '1px solid',
+    marginLeft: '0.3rem'
   },
-  atomSymbol: {
-    fontSize: '0.7rem',
-    fontWeight: 'bold'
+  backgroundEffects: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    pointerEvents: 'none',
+    overflow: 'hidden'
+  },
+  bond: {
+    position: 'absolute',
+    height: '2px',
+    transformOrigin: 'center'
+  },
+  electronCloud: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100px',
+    height: '100px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(100, 180, 255, 0.05) 0%, transparent 70%)'
+  },
+  electron: {
+    position: 'absolute',
+    width: '6px',
+    height: '6px',
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  particle: {
+    position: 'absolute',
+    width: '3px',
+    height: '3px',
+    borderRadius: '50%',
+    opacity: 0
   }
 };
+
+// Add CSS animation for pulse
+const pulseAnimation = `
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+  }
+`;
+
+// Inject styles if needed
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = pulseAnimation;
+  document.head.appendChild(styleSheet);
+}
 
 export default CompoundDisplay;

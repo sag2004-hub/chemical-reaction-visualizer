@@ -1,65 +1,149 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useAnimation, useStepAnimation, useBondAnimation } from '../../hooks/useAnimation';
+import { motion } from 'framer-motion';
 import CompoundDisplay from './CompoundDisplay';
-import { Play, Pause, RotateCcw, SkipForward, SkipBack, Zap, Atom } from 'lucide-react';
-import '../../styles/animations.css';
+import { 
+  Play, 
+  Pause, 
+  RotateCcw, 
+  SkipForward, 
+  SkipBack, 
+  Zap, 
+  Atom, 
+  Target,
+  Eye,
+  EyeOff,
+  Gauge,
+  AlertCircle,
+  Clock,
+  Thermometer,
+  ChevronRight,
+  Sparkles
+} from 'lucide-react';
 
-function ReactionAnimation({ reaction, type = 'organic' }) {
+function ReactionAnimation({ reaction, style }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showElectrons, setShowElectrons] = useState(true);
   const [showBonds, setShowBonds] = useState(true);
+  const [speed, setSpeed] = useState(1);
   const [selectedCompound, setSelectedCompound] = useState(null);
-  
-  const { progress, setTo, reset, togglePlay, stepForward, stepBackward } = useAnimation(0);
-  const animationAreaRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const animationRef = useRef(null);
+  const containerRef = useRef(null);
 
-  // Default reaction data if none provided
+  // Enhanced reaction data with detailed animation steps
   const reactionData = reaction || {
     id: 'default',
-    name: 'Sample Reaction',
-    type: 'combination',
-    category: type,
-    equation: '2H₂ + O₂ → 2H₂O',
-    description: 'Formation of water from hydrogen and oxygen',
+    name: 'SN2 Nucleophilic Substitution',
+    type: 'substitution',
+    description: 'Backside attack with inversion of configuration',
+    equation: 'CH₃Br + OH⁻ → CH₃OH + Br⁻',
+    energy: '-45 kJ/mol (Exothermic)',
+    temperature: '25°C',
+    mechanism: 'Concerted bimolecular',
     compounds: {
       reactants: [
-        { name: 'Hydrogen', formula: 'H₂', color: '#ff6b6b', state: 'gas' },
-        { name: 'Oxygen', formula: 'O₂', color: '#1e90ff', state: 'gas' }
+        { 
+          name: 'Methyl Bromide', 
+          formula: 'CH₃Br', 
+          color: '#60a5fa',
+          electrons: 26,
+          bonds: 4,
+          state: 'liquid',
+          charge: 0
+        },
+        { 
+          name: 'Hydroxide Ion', 
+          formula: 'OH⁻', 
+          color: '#34d399',
+          electrons: 10,
+          bonds: 1,
+          state: 'aqueous',
+          charge: -1
+        }
       ],
       products: [
-        { name: 'Water', formula: 'H₂O', color: '#2ed573', state: 'liquid' }
+        { 
+          name: 'Methanol', 
+          formula: 'CH₃OH', 
+          color: '#f87171',
+          electrons: 26,
+          bonds: 4,
+          state: 'liquid',
+          charge: 0
+        },
+        { 
+          name: 'Bromide Ion', 
+          formula: 'Br⁻', 
+          color: '#fbbf24',
+          electrons: 36,
+          bonds: 0,
+          state: 'aqueous',
+          charge: -1
+        }
       ]
     },
     steps: [
-      'Reactants approach each other',
-      'H-H bonds break',
-      'O=O bond breaks',
-      'New O-H bonds form',
-      'Water molecules form'
+      { 
+        title: 'Reactants Approach',
+        description: 'Nucleophile approaches electrophilic carbon',
+        duration: 2,
+        keyEvents: ['Optimal orientation', 'Orbital alignment']
+      },
+      { 
+        title: 'Nucleophilic Attack',
+        description: 'OH⁻ attacks carbon from backside',
+        duration: 3,
+        keyEvents: ['Bond formation begins', 'Electron donation']
+      },
+      { 
+        title: 'Transition State',
+        description: 'Maximum energy configuration',
+        duration: 4,
+        keyEvents: ['Partial bonds', 'High energy state']
+      },
+      { 
+        title: 'Bond Breaking',
+        description: 'C-Br bond breaks as C-OH bond forms',
+        duration: 2,
+        keyEvents: ['Bond cleavage', 'Leaving group departure']
+      },
+      { 
+        title: 'Product Formation',
+        description: 'Final products with inverted configuration',
+        duration: 2,
+        keyEvents: ['Steric relaxation', 'Energy release']
+      }
     ]
   };
 
-  const { reactants = [], products = [] } = reactionData.compounds || { reactants: [], products: [] };
-  const steps = reactionData.steps || ['Step 1', 'Step 2', 'Step 3'];
-  
+  const { reactants = [], products = [] } = reactionData.compounds || {};
+  const steps = reactionData.steps || [];
   const currentStep = Math.floor((progress / 100) * (steps.length - 1));
+  const stepProgress = (progress % (100 / steps.length)) / (100 / steps.length);
 
   useEffect(() => {
     if (isPlaying && progress < 100) {
-      const timer = setTimeout(() => {
-        setTo(progress + 0.5);
-      }, 20);
-      return () => clearTimeout(timer);
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          const increment = speed * 0.3;
+          return prev >= 100 ? 100 : prev + increment;
+        });
+      }, 16);
+      return () => clearInterval(interval);
     } else if (progress >= 100) {
       setIsPlaying(false);
     }
-  }, [isPlaying, progress, setTo]);
+  }, [isPlaying, progress, speed]);
+
+  useEffect(() => {
+    setProgress(0);
+    setIsPlaying(false);
+  }, [reaction]);
 
   const handlePlayPause = () => {
     if (progress >= 100) {
-      reset();
+      setProgress(0);
       setIsPlaying(true);
     } else {
       setIsPlaying(!isPlaying);
@@ -67,398 +151,531 @@ function ReactionAnimation({ reaction, type = 'organic' }) {
   };
 
   const handleReset = () => {
-    reset();
+    setProgress(0);
     setIsPlaying(false);
+    setSelectedCompound(null);
   };
 
   const handleStepForward = () => {
-    const stepSize = 100 / (steps.length - 1);
-    stepForward(stepSize);
+    const stepSize = 100 / steps.length;
+    setProgress(prev => Math.min(100, prev + stepSize));
   };
 
   const handleStepBackward = () => {
-    const stepSize = 100 / (steps.length - 1);
-    stepBackward(stepSize);
+    const stepSize = 100 / steps.length;
+    setProgress(prev => Math.max(0, prev - stepSize));
   };
 
-  const renderBonds = () => {
-    if (!showBonds) return null;
+  const renderBackgroundEffects = () => {
+    return (
+      <div style={styles.backgroundEffects}>
+        {/* Orbital rings */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={`orbit-${i}`}
+            style={{
+              ...styles.orbitRing,
+              borderColor: `rgba(96, 165, 250, ${0.1 + i * 0.1})`,
+              width: `${200 + i * 80}px`,
+              height: `${200 + i * 80}px`
+            }}
+            animate={{
+              rotate: 360,
+              scale: [1, 1.05, 1]
+            }}
+            transition={{
+              duration: 20 + i * 5,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        ))}
 
-    const bondElements = [];
-    const centerX = 50;
-    const centerY = 50;
-
-    // Render bonds based on progress
-    const bondProgress = progress / 100;
-
-    // Breaking bonds (first half of animation)
-    if (bondProgress < 0.5) {
-      bondElements.push(
-        <motion.div
-          key="bond-breaking"
-          className="bond-line"
-          style={{
-            ...styles.bond,
-            left: `${centerX - 15}%`,
-            top: `${centerY}%`,
-            width: `${30 * (1 - bondProgress * 2)}%`,
-            backgroundColor: '#ef4444'
-          }}
-          animate={{
-            opacity: [1, 0.5, 1],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity
-          }}
-        />
-      );
-    }
-
-    // Forming bonds (second half of animation)
-    if (bondProgress > 0.5) {
-      const formProgress = (bondProgress - 0.5) * 2;
-      bondElements.push(
-        <motion.div
-          key="bond-forming"
-          className="bond-line"
-          style={{
-            ...styles.bond,
-            left: `${centerX - 15}%`,
-            top: `${centerY + 10}%`,
-            width: `${30 * formProgress}%`,
-            backgroundColor: '#10b981'
-          }}
-          animate={{
-            opacity: [0.5, 1, 0.5],
-            scale: [0.8, 1, 0.8]
-          }}
-          transition={{
-            duration: 0.8,
-            repeat: Infinity
-          }}
-        />
-      );
-    }
-
-    return bondElements;
+        {/* Energy particles */}
+        {isPlaying && [...Array(20)].map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            style={{
+              ...styles.energyParticle,
+              background: i % 2 ? '#60a5fa' : '#34d399',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 0.5, 0],
+              scale: [0, 1, 0]
+            }}
+            transition={{
+              duration: 2 + Math.random(),
+              repeat: Infinity,
+              delay: i * 0.1
+            }}
+          />
+        ))}
+      </div>
+    );
   };
 
-  const renderElectrons = () => {
+  const renderElectronFlow = () => {
     if (!showElectrons) return null;
 
-    const electrons = [];
-    const electronCount = Math.floor(progress / 10) + 1;
+    const flowCount = Math.floor(stepProgress * 5) + 1;
 
-    for (let i = 0; i < electronCount; i++) {
-      const angle = (i / electronCount) * Math.PI * 2 + (progress / 100) * Math.PI * 2;
-      const radius = 40 + Math.sin(progress / 100 * Math.PI) * 10;
-      const x = 50 + Math.cos(angle) * radius;
-      const y = 50 + Math.sin(angle) * radius;
+    return (
+      <div style={styles.electronFlowContainer}>
+        {[...Array(flowCount)].map((_, i) => (
+          <motion.div
+            key={`flow-${i}`}
+            style={styles.electronFlow}
+            animate={{
+              x: ['-100%', '100%'],
+              opacity: [0, 1, 0]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "linear"
+            }}
+          >
+            <div style={styles.electron}>•</div>
+            <div style={styles.electron}>•</div>
+          </motion.div>
+        ))}
+      </div>
+    );
+  };
 
-      electrons.push(
+  const renderBondAnimations = () => {
+    if (!showBonds) return null;
+
+    const centerX = 50;
+    const centerY = 50;
+    const bondProgress = stepProgress;
+
+    return (
+      <div style={styles.bondAnimations}>
+        {/* Breaking bond */}
+        {bondProgress < 0.5 && (
+          <motion.div
+            style={{
+              ...styles.bond,
+              left: `${centerX}%`,
+              top: `${centerY}%`,
+              width: `${100 * (0.5 - bondProgress)}px`,
+              background: `linear-gradient(90deg, #f87171, transparent)`
+            }}
+            animate={{
+              opacity: [0.7, 1, 0.7],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{
+              duration: 0.8,
+              repeat: Infinity
+            }}
+          />
+        )}
+
+        {/* Forming bond */}
+        {bondProgress >= 0.5 && (
+          <motion.div
+            style={{
+              ...styles.bond,
+              left: `${centerX}%`,
+              top: `${centerY}%`,
+              width: `${100 * (bondProgress - 0.5) * 2}px`,
+              background: `linear-gradient(90deg, #34d399, transparent)`
+            }}
+            animate={{
+              opacity: [0.5, 1, 0.5],
+              scale: [0.9, 1.2, 0.9]
+            }}
+            transition={{
+              duration: 1,
+              repeat: Infinity
+            }}
+          />
+        )}
+
+        {/* Orbital overlap */}
         <motion.div
-          key={`electron-${i}`}
-          className="electron-orbit"
           style={{
-            ...styles.electron,
-            left: `${x}%`,
-            top: `${y}%`
+            ...styles.orbitalOverlap,
+            left: `${centerX}%`,
+            top: `${centerY}%`,
+            background: `radial-gradient(circle, rgba(96, 165, 250, ${0.2 * bondProgress}) 0%, transparent 70%)`
           }}
           animate={{
-            rotate: 360,
             scale: [1, 1.2, 1]
           }}
           transition={{
             duration: 2,
-            repeat: Infinity,
-            ease: "linear"
+            repeat: Infinity
           }}
         />
-      );
-    }
-
-    return electrons;
-  };
-
-  const renderReactants = () => {
-    const reactantProgress = Math.min(progress / 50, 1); // Reactants fade in first half
-    
-    return reactants.map((compound, index) => {
-      const offset = index * 30;
-      const x = 20 + offset * (1 - reactantProgress);
-      const y = 50 + Math.sin(progress / 100 * Math.PI) * 10;
-
-      return (
-        <motion.div
-          key={`reactant-${index}`}
-          style={{
-            ...styles.compoundWrapper,
-            left: `${x}%`,
-            top: `${y}%`,
-            opacity: 1 - (progress / 100) * 0.8,
-            transform: `translate(-50%, -50%) scale(${1 - (progress / 100) * 0.3})`
-          }}
-          animate={{
-            x: [0, 10, 0],
-            y: [0, -5, 0]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: index * 0.2
-          }}
-        >
-          <CompoundDisplay
-            compound={compound}
-            type="reactant"
-            isActive={selectedCompound?.formula === compound.formula}
-            onSelect={setSelectedCompound}
-            animationProgress={reactantProgress}
-          />
-        </motion.div>
-      );
-    });
-  };
-
-  const renderProducts = () => {
-    const productProgress = Math.max(0, (progress - 50) / 50); // Products appear second half
-    
-    return products.map((compound, index) => {
-      const offset = index * 30;
-      const x = 80 - offset * productProgress;
-      const y = 50 + Math.sin((progress - 50) / 100 * Math.PI) * 10;
-
-      return (
-        <motion.div
-          key={`product-${index}`}
-          style={{
-            ...styles.compoundWrapper,
-            left: `${x}%`,
-            top: `${y}%`,
-            opacity: 0.2 + productProgress * 0.8,
-            transform: `translate(-50%, -50%) scale(${0.7 + productProgress * 0.3})`
-          }}
-          animate={{
-            x: [0, -10, 0],
-            y: [0, 5, 0]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: index * 0.2
-          }}
-        >
-          <CompoundDisplay
-            compound={compound}
-            type="product"
-            isActive={selectedCompound?.formula === compound.formula}
-            onSelect={setSelectedCompound}
-            animationProgress={productProgress}
-          />
-        </motion.div>
-      );
-    });
+      </div>
+    );
   };
 
   const renderReactionArrow = () => {
-    const arrowProgress = progress / 100;
-    
     return (
       <motion.div
-        style={{
-          ...styles.reactionArrow,
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)'
-        }}
+        style={styles.reactionArrow}
         animate={{
-          scale: [1, 1.2, 1],
-          rotate: arrowProgress < 0.5 ? 0 : 180
+          scale: isPlaying ? [1, 1.1, 1] : 1,
+          opacity: [0.8, 1, 0.8]
         }}
         transition={{
-          duration: 1,
-          repeat: 0
+          duration: 1.5,
+          repeat: Infinity
         }}
       >
-        <div style={styles.arrowBody}>→</div>
-        <motion.div
-          style={styles.arrowProgress}
-          animate={{
-            width: `${progress}%`
-          }}
-          transition={{
-            duration: 0.1
-          }}
-        />
+        <div style={styles.arrowBody}>
+          <ChevronRight size={48} />
+        </div>
+        {renderElectronFlow()}
+        <div style={styles.arrowLabel}>
+          <Sparkles size={14} />
+          Reaction Progress
+        </div>
       </motion.div>
     );
   };
 
+  const renderProgressTimeline = () => {
+    return (
+      <div style={styles.timeline}>
+        {steps.map((step, index) => {
+          const stepStart = (index / steps.length) * 100;
+          const stepEnd = ((index + 1) / steps.length) * 100;
+          const isActive = progress >= stepStart;
+          const isCurrent = progress >= stepStart && progress < stepEnd;
+
+          return (
+            <div
+              key={index}
+              style={styles.timelineStep}
+              onClick={() => setProgress(stepStart)}
+            >
+              <motion.div
+                style={{
+                  ...styles.timelineMarker,
+                  background: isActive ? '#60a5fa' : 'rgba(96, 165, 250, 0.2)',
+                  borderColor: isActive ? '#60a5fa' : 'rgba(96, 165, 250, 0.4)'
+                }}
+                whileHover={{ scale: 1.2 }}
+              >
+                {isActive && (
+                  <motion.div
+                    style={styles.activePulse}
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.5, 0, 0.5]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity
+                    }}
+                  />
+                )}
+                {index + 1}
+              </motion.div>
+              
+              <div style={styles.timelineInfo}>
+                <div style={{
+                  ...styles.stepTitle,
+                  color: isCurrent ? '#e2e8f0' : '#94a3b8'
+                }}>
+                  {step.title}
+                </div>
+                {isCurrent && (
+                  <div style={styles.stepDescription}>
+                    {step.description}
+                  </div>
+                )}
+              </div>
+              
+              {isCurrent && (
+                <motion.div
+                  style={styles.progressIndicator}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${stepProgress * 100}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
-    <div className="reaction-animation" style={styles.container}>
-      <div className="animation-header" style={styles.header}>
+    <div ref={containerRef} style={{...styles.container, ...style}}>
+      {/* Header Section */}
+      <div style={styles.header}>
         <div style={styles.titleSection}>
+          <motion.div 
+            style={styles.titleBadge}
+            whileHover={{ scale: 1.05 }}
+          >
+            <Atom size={20} />
+            <span>Reaction Animation</span>
+          </motion.div>
           <h3 style={styles.title}>{reactionData.name}</h3>
-          <div style={styles.equation}>
-            <code style={styles.equationCode}>{reactionData.equation}</code>
+          <div style={styles.equationContainer}>
+            <div style={styles.equation}>{reactionData.equation}</div>
+            <div style={styles.reactionInfo}>
+              <div style={styles.infoItem}>
+                <Thermometer size={14} />
+                {reactionData.energy}
+              </div>
+              <div style={styles.infoItem}>
+                <Clock size={14} />
+                {reactionData.temperature}
+              </div>
+              <div style={styles.infoItem}>
+                <Target size={14} />
+                {reactionData.mechanism}
+              </div>
+            </div>
           </div>
         </div>
         
-        <div style={styles.stepIndicator}>
-          <Atom size={20} />
-          <span style={styles.stepText}>
-            Step {currentStep + 1}: {steps[currentStep]}
-          </span>
+        <div style={styles.stepDisplay}>
+          <div style={styles.currentStep}>
+            <div style={styles.stepNumber}>STEP {currentStep + 1}</div>
+            <div style={styles.stepName}>{steps[currentStep]?.title}</div>
+          </div>
+          <div style={styles.progressDisplay}>
+            <div style={styles.progressText}>
+              {progress.toFixed(1)}%
+            </div>
+            <div style={styles.progressBar}>
+              <motion.div 
+                style={styles.progressFill}
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.1 }}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div 
-        ref={animationAreaRef}
-        className="animation-area" 
-        style={styles.animationArea}
-      >
-        {/* Background grid */}
-        <div style={styles.grid} />
+      {/* Main Animation Area */}
+      <div ref={animationRef} style={styles.animationArea}>
+        {renderBackgroundEffects()}
         
         {/* Reactants */}
-        {renderReactants()}
-        
-        {/* Reaction arrow */}
-        {renderReactionArrow()}
-        
+        <div style={styles.reactantsArea}>
+          {reactants.map((compound, index) => (
+            <motion.div
+              key={`reactant-${index}`}
+              style={styles.compoundWrapper}
+              animate={{
+                x: [0, 5, 0],
+                y: [0, -3, 0],
+                opacity: [0.8 - (progress / 100) * 0.5, 1 - (progress / 100) * 0.5, 0.8 - (progress / 100) * 0.5]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: index * 0.2
+              }}
+            >
+              <CompoundDisplay
+                compound={compound}
+                type="reactant"
+                isActive={selectedCompound?.formula === compound.formula}
+                onClick={() => setSelectedCompound(compound)}
+                size="medium"
+              />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Center Animation */}
+        <div style={styles.centerArea}>
+          {renderReactionArrow()}
+          {renderBondAnimations()}
+          
+          {/* Transition State Indicator */}
+          {progress > 30 && progress < 70 && (
+            <motion.div
+              style={styles.transitionState}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+            >
+              <AlertCircle size={24} />
+              <div style={styles.transitionText}>Transition State</div>
+            </motion.div>
+          )}
+        </div>
+
         {/* Products */}
-        {renderProducts()}
-        
-        {/* Bonds animation */}
-        {renderBonds()}
-        
-        {/* Electrons animation */}
-        {renderElectrons()}
-        
-        {/* Progress indicator */}
-        <div style={styles.overallProgress}>
-          <div 
-            style={{ 
-              ...styles.progressBar, 
-              width: `${progress}%` 
-            }} 
-          />
-          <div style={styles.progressLabel}>
-            {progress.toFixed(1)}%
-          </div>
+        <div style={styles.productsArea}>
+          {products.map((compound, index) => (
+            <motion.div
+              key={`product-${index}`}
+              style={styles.compoundWrapper}
+              animate={{
+                x: [0, -5, 0],
+                y: [0, 3, 0],
+                opacity: [0.2 + (progress / 100) * 0.8, 0.3 + (progress / 100) * 0.7, 0.2 + (progress / 100) * 0.8]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: index * 0.2
+              }}
+            >
+              <CompoundDisplay
+                compound={compound}
+                type="product"
+                isActive={selectedCompound?.formula === compound.formula}
+                onClick={() => setSelectedCompound(compound)}
+                size="medium"
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      <div className="controls" style={styles.controls}>
-        <div style={styles.controlGroup}>
-          <button
+      {/* Controls Section */}
+      <div style={styles.controls}>
+        <div style={styles.controlsLeft}>
+          <motion.button
             onClick={handleStepBackward}
             style={styles.controlButton}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             disabled={progress <= 0}
           >
             <SkipBack size={20} />
-          </button>
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={handlePlayPause}
-            style={{ ...styles.controlButton, ...styles.playButton }}
+            style={styles.playButton}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-          </button>
+            <span>{isPlaying ? 'Pause' : 'Play'}</span>
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={handleStepForward}
             style={styles.controlButton}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             disabled={progress >= 100}
           >
             <SkipForward size={20} />
-          </button>
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={handleReset}
             style={styles.controlButton}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <RotateCcw size={20} />
-          </button>
+          </motion.button>
         </div>
 
-        <div style={styles.speedControl}>
-          <label style={styles.speedLabel}>Speed:</label>
-          <input
-            type="range"
-            min="0.1"
-            max="3"
-            step="0.1"
-            defaultValue="1"
-            style={styles.speedSlider}
-            onChange={(e) => {
-              // Speed control logic would go here
-            }}
-          />
-        </div>
+        <div style={styles.controlsRight}>
+          {/* Speed Control */}
+          <div style={styles.speedControl}>
+            <Gauge size={16} />
+            <span style={styles.controlLabel}>Speed:</span>
+            <div style={styles.speedButtons}>
+              {[0.5, 1, 2].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSpeed(s)}
+                  style={{
+                    ...styles.speedButton,
+                    ...(speed === s && styles.activeSpeedButton)
+                  }}
+                >
+                  {s}x
+                </button>
+              ))}
+            </div>
+          </div>
 
-        <div style={styles.toggleGroup}>
-          <label style={styles.toggleLabel}>
-            <input
-              type="checkbox"
-              checked={showElectrons}
-              onChange={(e) => setShowElectrons(e.target.checked)}
-              style={styles.toggleInput}
-            />
-            <Zap size={16} />
-            <span>Electrons</span>
-          </label>
-          
-          <label style={styles.toggleLabel}>
-            <input
-              type="checkbox"
-              checked={showBonds}
-              onChange={(e) => setShowBonds(e.target.checked)}
-              style={styles.toggleInput}
-            />
-            <Atom size={16} />
-            <span>Bonds</span>
-          </label>
+          {/* Toggle Controls */}
+          <div style={styles.toggleGroup}>
+            <motion.label
+              style={styles.toggleLabel}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <input
+                type="checkbox"
+                checked={showElectrons}
+                onChange={(e) => setShowElectrons(e.target.checked)}
+                style={styles.toggleInput}
+              />
+              {showElectrons ? <Zap size={16} /> : <Zap size={16} />}
+              <span>Electrons</span>
+            </motion.label>
+            
+            <motion.label
+              style={styles.toggleLabel}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <input
+                type="checkbox"
+                checked={showBonds}
+                onChange={(e) => setShowBonds(e.target.checked)}
+                style={styles.toggleInput}
+              />
+              {showBonds ? <Atom size={16} /> : <Atom size={16} />}
+              <span>Bonds</span>
+            </motion.label>
+          </div>
         </div>
       </div>
 
-      <div className="progress-section" style={styles.progressSection}>
-        <div style={styles.stepsContainer}>
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              style={{
-                ...styles.stepMarker,
-                ...(index <= currentStep ? styles.activeStepMarker : {}),
-                ...(index === currentStep ? styles.currentStepMarker : {})
-              }}
-              title={step}
-              onClick={() => setTo((index / (steps.length - 1)) * 100)}
-            >
-              <div style={styles.stepNumber}>{index + 1}</div>
-              <div style={styles.stepName}>{step}</div>
-            </div>
-          ))}
-        </div>
+      {/* Timeline & Details */}
+      <div style={styles.footer}>
+        {renderProgressTimeline()}
         
-        <div style={styles.progressInfo}>
-          <div style={styles.compoundInfo}>
-            {selectedCompound ? (
-              <>
-                <strong>Selected:</strong> {selectedCompound.name} ({selectedCompound.formula})
-              </>
-            ) : (
-              'Click on a compound for details'
-            )}
-          </div>
-          
-          <div style={styles.energyInfo}>
-            <Zap size={16} />
-            <span>Energy: {reactionData.energy || 'Exothermic'}</span>
-          </div>
-        </div>
+        {/* Selected Compound Details */}
+        {selectedCompound && (
+          <motion.div
+            style={styles.compoundDetails}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div style={styles.detailsHeader}>
+              <Eye size={18} />
+              <span>Selected Compound</span>
+            </div>
+            <div style={styles.detailsContent}>
+              <div style={styles.detailRow}>
+                <strong>Name:</strong> {selectedCompound.name}
+              </div>
+              <div style={styles.detailRow}>
+                <strong>Formula:</strong> {selectedCompound.formula}
+              </div>
+              <div style={styles.detailRow}>
+                <strong>State:</strong> {selectedCompound.state}
+              </div>
+              {selectedCompound.charge !== 0 && (
+                <div style={styles.detailRow}>
+                  <strong>Charge:</strong> {selectedCompound.charge}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
       </div>
     </div>
   );
@@ -466,274 +683,497 @@ function ReactionAnimation({ reaction, type = 'organic' }) {
 
 const styles = {
   container: {
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    padding: '25px',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+    backgroundColor: 'rgba(15, 23, 42, 0.7)',
+    borderRadius: '20px',
+    padding: '2rem',
+    border: '1px solid rgba(100, 180, 255, 0.2)',
+    backdropFilter: 'blur(10px)',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+    color: '#f1f5f9',
+    position: 'relative',
+    overflow: 'hidden'
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: '25px',
+    marginBottom: '2rem',
     flexWrap: 'wrap',
-    gap: '20px'
+    gap: '1.5rem'
   },
   titleSection: {
-    flex: '1',
+    flex: 1,
     minWidth: '300px'
   },
+  titleBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    background: 'rgba(96, 165, 250, 0.15)',
+    color: '#60a5fa',
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    fontSize: '0.875rem',
+    fontWeight: 600,
+    marginBottom: '0.8rem',
+    border: '1px solid rgba(96, 165, 250, 0.3)',
+    cursor: 'default'
+  },
   title: {
-    fontSize: '1.5rem',
-    color: '#1f2937',
-    marginBottom: '10px',
-    fontWeight: 'bold'
+    fontSize: '1.8rem',
+    fontWeight: 700,
+    color: '#e2e8f0',
+    margin: '0 0 1rem 0',
+    background: 'linear-gradient(90deg, #a5b4fc, #60a5fa)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent'
+  },
+  equationContainer: {
+    background: 'rgba(30, 41, 59, 0.5)',
+    borderRadius: '12px',
+    padding: '1rem 1.5rem',
+    border: '1px solid rgba(100, 180, 255, 0.1)'
   },
   equation: {
-    backgroundColor: '#f9fafb',
-    padding: '12px 20px',
-    borderRadius: '8px',
-    fontFamily: 'monospace',
-    fontSize: '1.2rem',
-    color: '#1e40af',
-    fontWeight: 'bold',
-    display: 'inline-block'
+    fontFamily: 'Times New Roman, serif',
+    fontSize: '1.8rem',
+    fontWeight: 700,
+    color: '#a5b4fc',
+    marginBottom: '0.8rem',
+    textAlign: 'center'
   },
-  equationCode: {
-    display: 'block'
+  reactionInfo: {
+    display: 'flex',
+    gap: '1rem',
+    flexWrap: 'wrap'
   },
-  stepIndicator: {
+  infoItem: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    backgroundColor: '#f0f9ff',
-    padding: '12px 20px',
-    borderRadius: '8px',
-    border: '1px solid #dbeafe',
-    color: '#1e40af',
-    fontWeight: '500',
-    minWidth: '250px'
+    gap: '0.5rem',
+    background: 'rgba(30, 41, 59, 0.7)',
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    fontSize: '0.875rem',
+    color: '#cbd5e1',
+    border: '1px solid rgba(100, 180, 255, 0.1)'
   },
-  stepText: {
-    fontSize: '1rem'
+  stepDisplay: {
+    background: 'rgba(30, 41, 59, 0.5)',
+    borderRadius: '12px',
+    padding: '1.2rem',
+    minWidth: '250px',
+    border: '1px solid rgba(100, 180, 255, 0.1)'
+  },
+  currentStep: {
+    marginBottom: '1rem'
+  },
+  stepNumber: {
+    fontSize: '0.75rem',
+    color: '#60a5fa',
+    fontWeight: 700,
+    letterSpacing: '0.05em',
+    marginBottom: '0.3rem'
+  },
+  stepName: {
+    fontSize: '1.1rem',
+    fontWeight: 600,
+    color: '#e2e8f0'
+  },
+  progressDisplay: {
+    marginTop: '0.5rem'
+  },
+  progressText: {
+    textAlign: 'right',
+    fontSize: '0.875rem',
+    color: '#94a3b8',
+    marginBottom: '0.3rem'
+  },
+  progressBar: {
+    height: '6px',
+    background: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: '3px',
+    overflow: 'hidden'
+  },
+  progressFill: {
+    height: '100%',
+    background: 'linear-gradient(90deg, #60a5fa, #c084fc)',
+    borderRadius: '3px'
   },
   animationArea: {
     position: 'relative',
-    height: '400px',
-    backgroundColor: '#f8fafc',
-    borderRadius: '10px',
-    border: '2px solid #e2e8f0',
-    marginBottom: '25px',
+    height: '350px',
+    background: 'rgba(15, 23, 42, 0.4)',
+    borderRadius: '16px',
+    border: '1px solid rgba(100, 180, 255, 0.1)',
+    marginBottom: '2rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '2rem',
     overflow: 'hidden'
   },
-  grid: {
+  backgroundEffects: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: `
-      linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-      linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
-    `,
-    backgroundSize: '40px 40px',
+    pointerEvents: 'none'
+  },
+  orbitRing: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    border: '1px solid',
+    borderRadius: '50%',
     opacity: 0.3
   },
-  compoundWrapper: {
+  energyParticle: {
     position: 'absolute',
+    width: '4px',
+    height: '4px',
+    borderRadius: '50%',
+    opacity: 0
+  },
+  reactantsArea: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2
+  },
+  productsArea: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2
+  },
+  centerArea: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    zIndex: 1
+  },
+  compoundWrapper: {
+    position: 'relative',
     zIndex: 10
   },
   reactionArrow: {
-    position: 'absolute',
-    fontSize: '4rem',
-    color: '#6b7280',
+    position: 'relative',
+    color: 'rgba(96, 165, 250, 0.7)',
     zIndex: 5
   },
   arrowBody: {
     position: 'relative',
-    zIndex: 2
+    zIndex: 2,
+    filter: 'drop-shadow(0 0 10px rgba(96, 165, 250, 0.5))'
   },
-  arrowProgress: {
+  arrowLabel: {
+    position: 'absolute',
+    bottom: '-2rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    fontSize: '0.75rem',
+    color: '#94a3b8',
+    background: 'rgba(30, 41, 59, 0.7)',
+    padding: '0.3rem 0.8rem',
+    borderRadius: '20px',
+    border: '1px solid rgba(100, 180, 255, 0.1)'
+  },
+  electronFlowContainer: {
     position: 'absolute',
     top: '50%',
-    left: '0%',
-    height: '6px',
-    backgroundColor: '#3b82f6',
-    borderRadius: '3px',
-    zIndex: 1,
-    transform: 'translateY(-50%)'
+    left: '-50%',
+    right: '50%',
+    height: '2px',
+    transform: 'translateY(-50%)',
+    overflow: 'hidden'
   },
-  bond: {
+  electronFlow: {
     position: 'absolute',
-    height: '4px',
-    borderRadius: '2px',
-    transformOrigin: 'left center',
-    zIndex: 3
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '2px',
+    background: 'linear-gradient(90deg, transparent, #60a5fa, transparent)'
   },
   electron: {
     position: 'absolute',
-    width: '8px',
-    height: '8px',
-    borderRadius: '50%',
-    backgroundColor: '#f59e0b',
-    boxShadow: '0 0 10px #f59e0b',
-    zIndex: 2,
-    transform: 'translate(-50%, -50%)'
-  },
-  overallProgress: {
-    position: 'absolute',
-    bottom: '0',
-    left: '0',
-    right: '0',
+    width: '6px',
     height: '6px',
-    backgroundColor: '#e5e7eb'
+    background: '#60a5fa',
+    borderRadius: '50%',
+    top: '-2px',
+    boxShadow: '0 0 10px #60a5fa'
   },
-  progressBar: {
-    height: '100%',
-    backgroundColor: '#10b981',
-    transition: 'width 0.1s linear',
-    borderRadius: '3px'
-  },
-  progressLabel: {
+  bondAnimations: {
     position: 'absolute',
-    top: '-25px',
-    right: '10px',
-    color: '#6b7280',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    pointerEvents: 'none'
+  },
+  bond: {
+    position: 'absolute',
+    height: '3px',
+    borderRadius: '2px',
+    transform: 'translateX(-50%)',
+    filter: 'blur(1px)'
+  },
+  orbitalOverlap: {
+    position: 'absolute',
+    width: '150px',
+    height: '150px',
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)',
+    pointerEvents: 'none'
+  },
+  transitionState: {
+    position: 'absolute',
+    top: '-4rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    background: 'rgba(192, 132, 252, 0.2)',
+    border: '1px solid rgba(192, 132, 252, 0.4)',
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    color: '#c084fc',
     fontSize: '0.875rem',
-    fontWeight: '500'
+    fontWeight: 600
+  },
+  transitionText: {
+    marginTop: '0.1rem'
   },
   controls: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '25px',
+    padding: '1.5rem 0',
+    borderTop: '1px solid rgba(100, 180, 255, 0.1)',
+    borderBottom: '1px solid rgba(100, 180, 255, 0.1)',
+    marginBottom: '2rem',
     flexWrap: 'wrap',
-    gap: '20px'
+    gap: '1.5rem'
   },
-  controlGroup: {
+  controlsLeft: {
     display: 'flex',
-    gap: '10px',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: '0.8rem'
   },
   controlButton: {
-    backgroundColor: '#f3f4f6',
-    border: 'none',
-    padding: '12px',
-    borderRadius: '8px',
+    background: 'rgba(30, 41, 59, 0.7)',
+    border: '1px solid rgba(100, 180, 255, 0.2)',
+    color: '#e2e8f0',
+    padding: '0.8rem',
+    borderRadius: '10px',
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'all 0.3s',
-    color: '#4b5563',
-    minWidth: '50px'
+    transition: 'all 0.3s ease',
+    minWidth: '50px',
+    minHeight: '50px'
   },
   playButton: {
-    backgroundColor: '#3b82f6',
+    background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+    border: 'none',
     color: 'white',
-    padding: '15px',
-    borderRadius: '50%',
-    minWidth: '60px'
+    padding: '0.8rem 1.5rem',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    fontWeight: 600,
+    boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)',
+    minWidth: '120px',
+    justifyContent: 'center'
+  },
+  controlsRight: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1.5rem',
+    flexWrap: 'wrap'
   },
   speedControl: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    minWidth: '200px'
+    gap: '0.8rem',
+    background: 'rgba(30, 41, 59, 0.5)',
+    padding: '0.6rem 1rem',
+    borderRadius: '10px',
+    border: '1px solid rgba(100, 180, 255, 0.1)'
   },
-  speedLabel: {
-    color: '#6b7280',
-    fontSize: '0.875rem',
-    fontWeight: '500'
+  controlLabel: {
+    color: '#94a3b8',
+    fontSize: '0.875rem'
   },
-  speedSlider: {
-    flex: '1',
-    height: '6px',
-    borderRadius: '3px',
-    backgroundColor: '#d1d5db',
-    outline: 'none'
+  speedButtons: {
+    display: 'flex',
+    gap: '0.3rem'
+  },
+  speedButton: {
+    background: 'rgba(30, 41, 59, 0.7)',
+    border: '1px solid rgba(100, 180, 255, 0.2)',
+    color: '#94a3b8',
+    padding: '0.3rem 0.6rem',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '0.75rem',
+    transition: 'all 0.3s ease'
+  },
+  activeSpeedButton: {
+    background: 'rgba(96, 165, 250, 0.2)',
+    borderColor: '#60a5fa',
+    color: '#60a5fa'
   },
   toggleGroup: {
     display: 'flex',
-    gap: '20px'
+    gap: '1rem'
   },
   toggleLabel: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: '0.5rem',
+    background: 'rgba(30, 41, 59, 0.5)',
+    padding: '0.6rem 1rem',
+    borderRadius: '10px',
     cursor: 'pointer',
-    color: '#4b5563',
+    color: '#94a3b8',
     fontSize: '0.875rem',
-    fontWeight: '500'
+    fontWeight: 500,
+    border: '1px solid rgba(100, 180, 255, 0.1)',
+    transition: 'all 0.3s ease'
   },
   toggleInput: {
-    margin: '0'
+    margin: 0,
+    marginRight: '0.3rem'
   },
-  progressSection: {
-    borderTop: '1px solid #e5e7eb',
-    paddingTop: '20px'
+  footer: {
+    position: 'relative'
   },
-  stepsContainer: {
+  timeline: {
     display: 'flex',
-    gap: '10px',
-    marginBottom: '20px',
-    flexWrap: 'wrap'
+    flexDirection: 'column',
+    gap: '1rem',
+    marginBottom: '2rem'
   },
-  stepMarker: {
-    flex: '1',
-    minWidth: '120px',
-    padding: '12px',
-    borderRadius: '8px',
-    backgroundColor: '#f9fafb',
-    border: '1px solid #e5e7eb',
+  timelineStep: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
     cursor: 'pointer',
-    transition: 'all 0.3s',
-    textAlign: 'center'
+    position: 'relative',
+    padding: '0.8rem',
+    borderRadius: '10px',
+    transition: 'background 0.3s ease'
   },
-  activeStepMarker: {
-    backgroundColor: '#dbeafe',
-    borderColor: '#3b82f6'
-  },
-  currentStepMarker: {
-    backgroundColor: '#3b82f6',
-    borderColor: '#1e40af',
-    color: 'white'
-  },
-  stepNumber: {
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    marginBottom: '5px'
-  },
-  stepName: {
+  timelineMarker: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: '0.875rem',
-    opacity: '0.8'
+    fontWeight: 700,
+    color: '#e2e8f0',
+    border: '2px solid',
+    flexShrink: 0,
+    position: 'relative',
+    zIndex: 2
   },
-  progressInfo: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: '15px',
-    borderTop: '1px solid #e5e7eb',
-    flexWrap: 'wrap',
-    gap: '15px'
+  activePulse: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    background: '#60a5fa',
+    opacity: 0.5
   },
-  compoundInfo: {
-    color: '#4b5563',
+  timelineInfo: {
+    flex: 1
+  },
+  stepTitle: {
     fontSize: '0.95rem',
-    flex: '1',
-    minWidth: '300px'
+    fontWeight: 600,
+    marginBottom: '0.2rem'
   },
-  energyInfo: {
+  stepDescription: {
+    fontSize: '0.8rem',
+    color: '#94a3b8',
+    opacity: 0.9
+  },
+  progressIndicator: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    height: '3px',
+    background: 'linear-gradient(90deg, #60a5fa, #c084fc)',
+    borderRadius: '0 0 10px 10px'
+  },
+  compoundDetails: {
+    background: 'rgba(30, 41, 59, 0.5)',
+    borderRadius: '12px',
+    padding: '1.5rem',
+    border: '1px solid rgba(100, 180, 255, 0.1)',
+    animation: 'slideIn 0.3s ease'
+  },
+  detailsHeader: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
-    backgroundColor: '#fef3c7',
-    color: '#92400e',
-    padding: '8px 16px',
-    borderRadius: '20px',
-    fontWeight: '500',
-    fontSize: '0.875rem'
+    gap: '0.5rem',
+    color: '#60a5fa',
+    fontSize: '0.875rem',
+    fontWeight: 600,
+    marginBottom: '1rem'
+  },
+  detailsContent: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '0.8rem'
+  },
+  detailRow: {
+    fontSize: '0.9rem',
+    color: '#cbd5e1',
+    lineHeight: 1.5
   }
 };
+
+// CSS animation for slide-in effect
+const slideInAnimation = `
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = slideInAnimation;
+  document.head.appendChild(styleSheet);
+}
 
 export default ReactionAnimation;
