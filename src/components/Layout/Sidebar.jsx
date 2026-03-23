@@ -6,8 +6,8 @@ import {
   FlaskConical, Beaker, Zap, Circle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { logout } from '/Users/User/OneDrive/Desktop/chemical-reaction-visualizer/src/firebase/auth';
-import { useAuth } from '/Users/User/OneDrive/Desktop/chemical-reaction-visualizer/src/context/AuthContext';
+import { logout } from '../../firebase/auth';
+import { useAuth } from '../../context/AuthContext';
 
 function Sidebar() {
   const location = useLocation();
