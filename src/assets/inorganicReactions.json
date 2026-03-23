@@ -7,46 +7,22 @@
       "category": "inorganic",
       "equation": "2Na + Cl₂ → 2NaCl",
       "description": "Formation of sodium chloride from sodium metal and chlorine gas.",
-      "details": "This is a highly exothermic reaction where sodium metal reacts violently with chlorine gas to form sodium chloride (table salt).",
+      "details": "Highly exothermic; violent reaction.",
       "conditions": "Room temperature",
       "catalyst": "None",
       "temperature": "Room temperature",
-      "energy": "Exothermic (ΔH = -411 kJ/mol)",
-      "safety": "Reacts violently. Sodium is highly reactive with water. Chlorine is toxic.",
-      "applications": [
-        "Table salt production",
-        "Chemical synthesis",
-        "De-icing roads"
-      ],
+      "energy": "Exothermic",
+      "safety": "Sodium reacts violently with water; Cl₂ toxic.",
+      "applications": ["Table salt", "Chemical synthesis", "De-icing"],
       "compounds": {
         "reactants": [
-          {
-            "name": "Sodium",
-            "formula": "Na",
-            "color": "#f59e0b"
-          },
-          {
-            "name": "Chlorine",
-            "formula": "Cl₂",
-            "color": "#10b981"
-          }
+          {"name": "Sodium", "formula": "Na", "color": "#f59e0b"},
+          {"name": "Chlorine", "formula": "Cl₂", "color": "#10b981"}
         ],
         "products": [
-          {
-            "name": "Sodium Chloride",
-            "formula": "NaCl",
-            "color": "#8b5cf6"
-          }
+          {"name": "Sodium Chloride", "formula": "NaCl", "color": "#8b5cf6"}
         ]
-      },
-      "steps": [
-        "Sodium atoms approach chlorine molecules",
-        "Electron transfer from Na to Cl",
-        "Formation of Na⁺ and Cl⁻ ions",
-        "Ionic bond formation",
-        "Crystal lattice formation"
-      ],
-      "mechanism": "Electron transfer from sodium to chlorine, forming Na⁺ and Cl⁻ ions that attract each other to form ionic bonds."
+      }
     },
     {
       "id": "inorganic-2",
@@ -54,18 +30,1376 @@
       "type": "decomposition",
       "category": "inorganic",
       "equation": "2H₂O → 2H₂ + O₂",
-      "description": "Decomposition of water into hydrogen and oxygen gases using electricity.",
-      "details": "Electrical energy splits water molecules into hydrogen and oxygen gases.",
-      "conditions": "Electrical current",
-      "catalyst": "Platinum or other inert electrodes",
+      "description": "Decomposition of water into hydrogen and oxygen using electricity.",
+      "details": "Gases collected at separate electrodes.",
+      "conditions": "DC current, electrolyte",
+      "catalyst": "Inert electrodes",
       "temperature": "Room temperature",
-      "energy": "Endothermic (requires energy input)",
-      "safety": "Produces explosive hydrogen gas. Use proper ventilation.",
-      "applications": [
-        "Hydrogen production",
-        "Fuel cells",
-        "Spacecraft life support"
-      ]
+      "energy": "Endothermic",
+      "safety": "Explosive H₂–O₂ mixture.",
+      "applications": ["H₂ production", "Fuel cells"],
+      "compounds": {
+        "reactants": [{"name": "Water", "formula": "H₂O", "color": "#60a5fa"}],
+        "products": [
+          {"name": "Hydrogen", "formula": "H₂", "color": "#eab308"},
+          {"name": "Oxygen", "formula": "O₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-3",
+      "name": "Magnesium Oxide Formation",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "2Mg + O₂ → 2MgO",
+      "description": "Burning magnesium in oxygen.",
+      "details": "Intense white light.",
+      "conditions": "Ignition",
+      "catalyst": "None",
+      "temperature": "High",
+      "energy": "Exothermic",
+      "safety": "Very bright light.",
+      "applications": ["Pyrotechnics", "Refractories"],
+      "compounds": {
+        "reactants": [
+          {"name": "Magnesium", "formula": "Mg", "color": "#d1d5db"},
+          {"name": "Oxygen", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "Magnesium Oxide", "formula": "MgO", "color": "#ffffff"}]
+      }
+    },
+    {
+      "id": "inorganic-4",
+      "name": "Ammonia Synthesis (Haber-Bosch)",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "N₂ + 3H₂ ⇌ 2NH₃",
+      "description": "Industrial production of ammonia.",
+      "details": "High pressure and moderate temperature.",
+      "conditions": "200–300 atm, 400–500°C",
+      "catalyst": "Fe + promoters",
+      "temperature": "400–500°C",
+      "energy": "Exothermic",
+      "safety": "High pressure, flammable H₂.",
+      "applications": ["Fertilizers", "Explosives"],
+      "compounds": {
+        "reactants": [
+          {"name": "Nitrogen", "formula": "N₂", "color": "#60a5fa"},
+          {"name": "Hydrogen", "formula": "H₂", "color": "#eab308"}
+        ],
+        "products": [{"name": "Ammonia", "formula": "NH₃", "color": "#a78bfa"}]
+      }
+    },
+    {
+      "id": "inorganic-5",
+      "name": "Limestone Calcination",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "CaCO₃ → CaO + CO₂",
+      "description": "Heating limestone to produce quicklime.",
+      "details": "Endothermic industrial process.",
+      "conditions": "High temperature",
+      "catalyst": "None",
+      "temperature": "900–1000°C",
+      "energy": "Endothermic",
+      "safety": "High heat, dust.",
+      "applications": ["Cement", "Lime", "Steel flux"],
+      "compounds": {
+        "reactants": [{"name": "Calcium Carbonate", "formula": "CaCO₃", "color": "#d1d5db"}],
+        "products": [
+          {"name": "Calcium Oxide", "formula": "CaO", "color": "#ffffff"},
+          {"name": "Carbon Dioxide", "formula": "CO₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-6",
+      "name": "Zinc with Hydrochloric Acid",
+      "type": "displacement",
+      "category": "inorganic",
+      "equation": "Zn + 2HCl → ZnCl₂ + H₂",
+      "description": "Zinc displaces hydrogen from acid.",
+      "details": "Effervescence of hydrogen.",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Flammable H₂.",
+      "applications": ["Lab H₂ generation"],
+      "compounds": {
+        "reactants": [
+          {"name": "Zinc", "formula": "Zn", "color": "#a1a1aa"},
+          {"name": "Hydrochloric Acid", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "Zinc Chloride", "formula": "ZnCl₂", "color": "#8b5cf6"},
+          {"name": "Hydrogen", "formula": "H₂", "color": "#eab308"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-7",
+      "name": "Neutralization HCl + NaOH",
+      "type": "neutralization",
+      "category": "inorganic",
+      "equation": "HCl + NaOH → NaCl + H₂O",
+      "description": "Acid + base → salt + water.",
+      "details": "Strong–strong neutralization.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Corrosive.",
+      "applications": ["Titration", "pH control"],
+      "compounds": {
+        "reactants": [
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"},
+          {"name": "NaOH", "formula": "NaOH", "color": "#fbbf24"}
+        ],
+        "products": [
+          {"name": "NaCl", "formula": "NaCl", "color": "#8b5cf6"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-8",
+      "name": "Silver Chloride Precipitation",
+      "type": "precipitation",
+      "category": "inorganic",
+      "equation": "AgNO₃ + NaCl → AgCl ↓ + NaNO₃",
+      "description": "White precipitate of AgCl.",
+      "details": "Test for chloride ions.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Slightly exothermic",
+      "safety": "AgNO₃ stains skin.",
+      "applications": ["Qualitative analysis"],
+      "compounds": {
+        "reactants": [
+          {"name": "Silver Nitrate", "formula": "AgNO₃", "color": "#d1d5db"},
+          {"name": "NaCl", "formula": "NaCl", "color": "#8b5cf6"}
+        ],
+        "products": [
+          {"name": "AgCl", "formula": "AgCl", "color": "#ffffff"},
+          {"name": "NaNO₃", "formula": "NaNO₃", "color": "#d1d5db"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-9",
+      "name": "Sulfur Combustion",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "S + O₂ → SO₂",
+      "description": "Burning sulfur produces SO₂.",
+      "details": "Pungent choking gas.",
+      "conditions": "Ignition",
+      "catalyst": "None",
+      "temperature": "High",
+      "energy": "Exothermic",
+      "safety": "SO₂ toxic.",
+      "applications": ["Sulfuric acid production"],
+      "compounds": {
+        "reactants": [
+          {"name": "Sulfur", "formula": "S", "color": "#fbbf24"},
+          {"name": "Oxygen", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "SO₂", "formula": "SO₂", "color": "#ef4444"}]
+      }
+    },
+    {
+      "id": "inorganic-10",
+      "name": "Potassium Chlorate Decomposition",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "2KClO₃ → 2KCl + 3O₂",
+      "description": "Produces oxygen gas.",
+      "details": "Catalyzed by MnO₂.",
+      "conditions": "Heat",
+      "catalyst": "MnO₂",
+      "temperature": "~400°C",
+      "energy": "Endothermic (catalyzed)",
+      "safety": "Strong oxidizer.",
+      "applications": ["Lab O₂ preparation"],
+      "compounds": {
+        "reactants": [{"name": "KClO₃", "formula": "KClO₃", "color": "#d1d5db"}],
+        "products": [
+          {"name": "KCl", "formula": "KCl", "color": "#8b5cf6"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-11",
+      "name": "Iron Rusting",
+      "type": "oxidation",
+      "category": "inorganic",
+      "equation": "4Fe + 3O₂ + 6H₂O → 4Fe(OH)₃",
+      "description": "Slow corrosion of iron.",
+      "details": "Requires moisture and oxygen.",
+      "conditions": "Moist air",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Slow process.",
+      "applications": ["Corrosion study"],
+      "compounds": {
+        "reactants": [
+          {"name": "Fe", "formula": "Fe", "color": "#a1a1aa"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "Fe(OH)₃", "formula": "Fe(OH)₃", "color": "#8b4513"}]
+      }
+    },
+    {
+      "id": "inorganic-12",
+      "name": "Thermite Reaction",
+      "type": "displacement",
+      "category": "inorganic",
+      "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
+      "description": "Exothermic reduction of iron oxide.",
+      "details": "Molten iron produced.",
+      "conditions": "Ignition",
+      "catalyst": "None",
+      "temperature": ">2000°C",
+      "energy": "Highly exothermic",
+      "safety": "Extreme heat hazard.",
+      "applications": ["Welding rails"],
+      "compounds": {
+        "reactants": [
+          {"name": "Al", "formula": "Al", "color": "#d1d5db"},
+          {"name": "Fe₂O₃", "formula": "Fe₂O₃", "color": "#8b4513"}
+        ],
+        "products": [
+          {"name": "Al₂O₃", "formula": "Al₂O₃", "color": "#d1d5db"},
+          {"name": "Fe", "formula": "Fe", "color": "#a1a1aa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-13",
+      "name": "Copper with Dilute Nitric Acid",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO + 4H₂O",
+      "description": "Produces colorless NO gas.",
+      "details": "Copper dissolves.",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "NOₓ gases.",
+      "applications": ["Lab demonstration"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"},
+          {"name": "HNO₃", "formula": "HNO₃", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "Cu(NO₃)₂", "formula": "Cu(NO₃)₂", "color": "#8b5cf6"},
+          {"name": "NO", "formula": "NO", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-14",
+      "name": "Aluminum with NaOH",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂",
+      "description": "Amphoteric dissolution producing H₂.",
+      "details": "Hydrogen evolution.",
+      "conditions": "Aqueous NaOH",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Strong base, H₂ flammable.",
+      "applications": ["H₂ generation"],
+      "compounds": {
+        "reactants": [
+          {"name": "Al", "formula": "Al", "color": "#d1d5db"},
+          {"name": "NaOH", "formula": "NaOH", "color": "#fbbf24"}
+        ],
+        "products": [
+          {"name": "Na[Al(OH)₄]", "formula": "Na[Al(OH)₄]", "color": "#8b5cf6"},
+          {"name": "H₂", "formula": "H₂", "color": "#eab308"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-15",
+      "name": "Barium Sulfate Precipitation",
+      "type": "precipitation",
+      "category": "inorganic",
+      "equation": "BaCl₂ + SO₄²⁻ → BaSO₄ ↓ + 2Cl⁻",
+      "description": "White insoluble barium sulfate.",
+      "details": "Test for sulfate ions.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Slightly exothermic",
+      "safety": "Barium compounds toxic.",
+      "applications": ["Qualitative analysis"],
+      "compounds": {
+        "reactants": [
+          {"name": "BaCl₂", "formula": "BaCl₂", "color": "#d1d5db"},
+          {"name": "SO₄²⁻", "formula": "SO₄²⁻", "color": "#ef4444"}
+        ],
+        "products": [{"name": "BaSO₄", "formula": "BaSO₄", "color": "#ffffff"}]
+      }
+    },
+    {
+      "id": "inorganic-16",
+      "name": "Deacon Process (HCl to Cl₂)",
+      "type": "oxidation",
+      "category": "inorganic",
+      "equation": "4HCl + O₂ → 2Cl₂ + 2H₂O",
+      "description": "Catalytic oxidation of HCl.",
+      "details": "Industrial chlorine production.",
+      "conditions": "400–450°C",
+      "catalyst": "CuCl₂",
+      "temperature": "400–450°C",
+      "energy": "Exothermic",
+      "safety": "Toxic gases.",
+      "applications": ["Cl₂ production"],
+      "compounds": {
+        "reactants": [
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [
+          {"name": "Cl₂", "formula": "Cl₂", "color": "#10b981"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-17",
+      "name": "NO to NO₂ Oxidation",
+      "type": "oxidation",
+      "category": "inorganic",
+      "equation": "2NO + O₂ → 2NO₂",
+      "description": "Part of Ostwald process.",
+      "details": "Brown gas formation.",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "NO₂ toxic.",
+      "applications": ["Nitric acid production"],
+      "compounds": {
+        "reactants": [
+          {"name": "NO", "formula": "NO", "color": "#60a5fa"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "NO₂", "formula": "NO₂", "color": "#ef4444"}]
+      }
+    },
+    {
+      "id": "inorganic-18",
+      "name": "Contact Process (SO₂ to SO₃)",
+      "type": "oxidation",
+      "category": "inorganic",
+      "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+      "description": "Catalytic step in sulfuric acid manufacture.",
+      "details": "Reversible exothermic.",
+      "conditions": "400–450°C, V₂O₅",
+      "catalyst": "V₂O₅",
+      "temperature": "400–450°C",
+      "energy": "Exothermic",
+      "safety": "SO₃ very corrosive.",
+      "applications": ["H₂SO₄ production"],
+      "compounds": {
+        "reactants": [
+          {"name": "SO₂", "formula": "SO₂", "color": "#ef4444"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "SO₃", "formula": "SO₃", "color": "#ef4444"}]
+      }
+    },
+    {
+      "id": "inorganic-19",
+      "name": "Lead Nitrate Decomposition",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "2Pb(NO₃)₂ → 2PbO + 4NO₂ + O₂",
+      "description": "Brown NO₂ gas evolved.",
+      "details": "Yellow PbO residue.",
+      "conditions": "Heat",
+      "catalyst": "None",
+      "temperature": "~400°C",
+      "energy": "Endothermic",
+      "safety": "Toxic NO₂, lead hazard.",
+      "applications": ["Demonstration"],
+      "compounds": {
+        "reactants": [{"name": "Pb(NO₃)₂", "formula": "Pb(NO₃)₂", "color": "#d1d5db"}],
+        "products": [
+          {"name": "PbO", "formula": "PbO", "color": "#fbbf24"},
+          {"name": "NO₂", "formula": "NO₂", "color": "#ef4444"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-20",
+      "name": "Ammonium Dichromate Volcano",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "(NH₄)₂Cr₂O₇ → Cr₂O₃ + N₂ + 4H₂O",
+      "description": "Green ash and nitrogen gas.",
+      "details": "Exothermic volcano demo.",
+      "conditions": "Ignition",
+      "catalyst": "None",
+      "temperature": "Ignition",
+      "energy": "Exothermic",
+      "safety": "Cr(VI) toxic.",
+      "applications": ["Classroom demonstration"],
+      "compounds": {
+        "reactants": [{"name": "(NH₄)₂Cr₂O₇", "formula": "(NH₄)₂Cr₂O₇", "color": "#d1d5db"}],
+        "products": [{"name": "Cr₂O₃", "formula": "Cr₂O₃", "color": "#15803d"}]
+      }
+    },
+    {
+      "id": "inorganic-21",
+      "name": "Copper Oxide Reduction with H₂",
+      "type": "reduction",
+      "category": "inorganic",
+      "equation": "CuO + H₂ → Cu + H₂O",
+      "description": "Black to red-brown copper.",
+      "details": "Reduction demonstration.",
+      "conditions": "Heat",
+      "catalyst": "None",
+      "temperature": "~300°C",
+      "energy": "Exothermic",
+      "safety": "H₂ flammable.",
+      "applications": ["Redox demo"],
+      "compounds": {
+        "reactants": [
+          {"name": "CuO", "formula": "CuO", "color": "#b45309"},
+          {"name": "H₂", "formula": "H₂", "color": "#eab308"}
+        ],
+        "products": [
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-22",
+      "name": "Halogen Displacement Cl₂ + KI",
+      "type": "displacement",
+      "category": "inorganic",
+      "equation": "Cl₂ + 2KI → 2KCl + I₂",
+      "description": "Brown iodine liberated.",
+      "details": "Halogen reactivity series.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Cl₂ toxic.",
+      "applications": ["Reactivity demo"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cl₂", "formula": "Cl₂", "color": "#10b981"},
+          {"name": "KI", "formula": "KI", "color": "#d1d5db"}
+        ],
+        "products": [
+          {"name": "KCl", "formula": "KCl", "color": "#8b5cf6"},
+          {"name": "I₂", "formula": "I₂", "color": "#8b5cf6"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-23",
+      "name": "Carbonate with Acid",
+      "type": "acid-base",
+      "category": "inorganic",
+      "equation": "CaCO₃ + 2HCl → CaCl₂ + CO₂ + H₂O",
+      "description": "Effervescence of CO₂.",
+      "details": "Test for carbonates.",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Corrosive acid.",
+      "applications": ["Qualitative test"],
+      "compounds": {
+        "reactants": [
+          {"name": "CaCO₃", "formula": "CaCO₃", "color": "#d1d5db"},
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "CaCl₂", "formula": "CaCl₂", "color": "#8b5cf6"},
+          {"name": "CO₂", "formula": "CO₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-24",
+      "name": "Sodium with Water",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2Na + 2H₂O → 2NaOH + H₂",
+      "description": "Violent reaction with H₂ evolution.",
+      "details": "Alkali metal reactivity.",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Highly exothermic",
+      "safety": "Fire and explosion risk.",
+      "applications": ["Reactivity demo"],
+      "compounds": {
+        "reactants": [
+          {"name": "Na", "formula": "Na", "color": "#f59e0b"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ],
+        "products": [
+          {"name": "NaOH", "formula": "NaOH", "color": "#fbbf24"},
+          {"name": "H₂", "formula": "H₂", "color": "#eab308"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-25",
+      "name": "Calcium with Water",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "Ca + 2H₂O → Ca(OH)₂ + H₂",
+      "description": "Moderate reaction, milky suspension.",
+      "details": "Less violent than Na.",
+      "conditions": "Room temperature",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Strong base produced.",
+      "applications": ["Reactivity comparison"],
+      "compounds": {
+        "reactants": [
+          {"name": "Ca", "formula": "Ca", "color": "#d1d5db"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ],
+        "products": [
+          {"name": "Ca(OH)₂", "formula": "Ca(OH)₂", "color": "#d1d5db"},
+          {"name": "H₂", "formula": "H₂", "color": "#eab308"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-26",
+      "name": "NO₂ Dimerization",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "2NO₂ ⇌ N₂O₄",
+      "description": "Brown gas to colorless dimer on cooling.",
+      "details": "Temperature-dependent equilibrium.",
+      "conditions": "Cooling",
+      "catalyst": "None",
+      "temperature": "Low favors dimer",
+      "energy": "Exothermic",
+      "safety": "NO₂ toxic.",
+      "applications": ["Equilibrium demo"],
+      "compounds": {
+        "reactants": [{"name": "NO₂", "formula": "NO₂", "color": "#ef4444"}],
+        "products": [{"name": "N₂O₄", "formula": "N₂O₄", "color": "#d1d5db"}]
+      }
+    },
+    {
+      "id": "inorganic-27",
+      "name": "Mercury(II) Oxide Decomposition",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "2HgO → 2Hg + O₂",
+      "description": "Red solid to mercury + oxygen.",
+      "details": "Priestley’s oxygen discovery.",
+      "conditions": "Heat",
+      "catalyst": "None",
+      "temperature": "~400°C",
+      "energy": "Endothermic",
+      "safety": "Hg vapor toxic.",
+      "applications": ["Historical demo"],
+      "compounds": {
+        "reactants": [{"name": "HgO", "formula": "HgO", "color": "#fbbf24"}],
+        "products": [
+          {"name": "Hg", "formula": "Hg", "color": "#a1a1aa"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-28",
+      "name": "Iron with Steam",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "3Fe + 4H₂O → Fe₃O₄ + 4H₂",
+      "description": "Hot iron reduces steam to H₂.",
+      "details": "Reversible at high temp.",
+      "conditions": "Hot iron, steam",
+      "catalyst": "None",
+      "temperature": "500–800°C",
+      "energy": "Endothermic forward",
+      "safety": "Hot apparatus.",
+      "applications": ["Redox demo"],
+      "compounds": {
+        "reactants": [
+          {"name": "Fe", "formula": "Fe", "color": "#a1a1aa"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ],
+        "products": [
+          {"name": "Fe₃O₄", "formula": "Fe₃O₄", "color": "#000000"},
+          {"name": "H₂", "formula": "H₂", "color": "#eab308"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-29",
+      "name": "White Phosphorus Combustion",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "P₄ + 5O₂ → P₄O₁₀",
+      "description": "Bright flame, white smoke.",
+      "details": "Hygroscopic product.",
+      "conditions": "Ignition in air",
+      "catalyst": "None",
+      "temperature": "Ignition",
+      "energy": "Exothermic",
+      "safety": "Highly reactive, toxic fumes.",
+      "applications": ["Reactivity demo"],
+      "compounds": {
+        "reactants": [
+          {"name": "P₄", "formula": "P₄", "color": "#ffffff"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "P₄O₁₀", "formula": "P₄O₁₀", "color": "#d1d5db"}]
+      }
+    },
+    {
+      "id": "inorganic-30",
+      "name": "Copper with Hot Concentrated H₂SO₄",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "Cu + 2H₂SO₄ → CuSO₄ + SO₂ + 2H₂O",
+      "description": "SO₂ gas evolved.",
+      "details": "Copper oxidized, acid reduced.",
+      "conditions": "Hot concentrated",
+      "catalyst": "None",
+      "temperature": "Hot",
+      "energy": "Exothermic",
+      "safety": "SO₂ toxic.",
+      "applications": ["Lab SO₂ preparation"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"},
+          {"name": "H₂SO₄", "formula": "H₂SO₄", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "CuSO₄", "formula": "CuSO₄", "color": "#0000ff"},
+          {"name": "SO₂", "formula": "SO₂", "color": "#ef4444"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-31",
+      "name": "Zinc with NaOH",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "Zn + 2NaOH + 2H₂O → Na₂[Zn(OH)₄] + H₂",
+      "description": "Amphoteric dissolution with H₂.",
+      "details": "Similar to Al reaction.",
+      "conditions": "Hot concentrated NaOH",
+      "catalyst": "None",
+      "temperature": "Hot",
+      "energy": "Exothermic",
+      "safety": "Strong base.",
+      "applications": ["H₂ generation"],
+      "compounds": {
+        "reactants": [
+          {"name": "Zn", "formula": "Zn", "color": "#a1a1aa"},
+          {"name": "NaOH", "formula": "NaOH", "color": "#fbbf24"}
+        ],
+        "products": [
+          {"name": "Na₂[Zn(OH)₄]", "formula": "Na₂[Zn(OH)₄]", "color": "#8b5cf6"},
+          {"name": "H₂", "formula": "H₂", "color": "#eab308"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-32",
+      "name": "MnO₂ with HCl (Chlorine prep)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂ + 2H₂O",
+      "description": "Green solution, Cl₂ gas.",
+      "details": "Classic lab preparation.",
+      "conditions": "Heat",
+      "catalyst": "None",
+      "temperature": "Heat",
+      "energy": "Exothermic",
+      "safety": "Cl₂ toxic.",
+      "applications": ["Lab Cl₂ generation"],
+      "compounds": {
+        "reactants": [
+          {"name": "MnO₂", "formula": "MnO₂", "color": "#000000"},
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "MnCl₂", "formula": "MnCl₂", "color": "#8b5cf6"},
+          {"name": "Cl₂", "formula": "Cl₂", "color": "#10b981"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-33",
+      "name": "KMnO₄ with Oxalic Acid (Titration)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2MnO₄⁻ + 5C₂O₄²⁻ + 16H⁺ → 2Mn²⁺ + 10CO₂ + 8H₂O",
+      "description": "Purple to colorless.",
+      "details": "Self-indicating titration.",
+      "conditions": "Warm, acidic",
+      "catalyst": "None",
+      "temperature": "60°C",
+      "energy": "Exothermic",
+      "safety": "Strong oxidant.",
+      "applications": ["Volumetric analysis"],
+      "compounds": {
+        "reactants": [
+          {"name": "KMnO₄", "formula": "KMnO₄", "color": "#8b5cf6"},
+          {"name": "H₂C₂O₄", "formula": "H₂C₂O₄", "color": "#d1d5db"}
+        ],
+        "products": [
+          {"name": "Mn²⁺", "formula": "Mn²⁺", "color": "#d1d5db"},
+          {"name": "CO₂", "formula": "CO₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-34",
+      "name": "Chromyl Chloride Test",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "K₂Cr₂O₇ + 6HCl → 2CrO₂Cl₂ + ...",
+      "description": "Red vapors of CrO₂Cl₂.",
+      "details": "Test for chloride.",
+      "conditions": "Concentrated acids",
+      "catalyst": "None",
+      "temperature": "Heat",
+      "energy": "Exothermic",
+      "safety": "Cr(VI) toxic.",
+      "applications": ["Qualitative test"],
+      "compounds": {
+        "reactants": [
+          {"name": "K₂Cr₂O₇", "formula": "K₂Cr₂O₇", "color": "#d1d5db"},
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [{"name": "CrO₂Cl₂", "formula": "CrO₂Cl₂", "color": "#ef4444"}]
+      }
+    },
+    {
+      "id": "inorganic-35",
+      "name": "Hydrogen Peroxide Decomposition (catalyzed)",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "2H₂O₂ → 2H₂O + O₂",
+      "description": "Foaming oxygen evolution.",
+      "details": "Catalyzed by MnO₂ or I⁻.",
+      "conditions": "Room temperature",
+      "catalyst": "MnO₂",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Strong oxidant.",
+      "applications": ["Demonstration", "Bleaching"],
+      "compounds": {
+        "reactants": [{"name": "H₂O₂", "formula": "H₂O₂", "color": "#60a5fa"}],
+        "products": [
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-36",
+      "name": "KMnO₄ with HCl (Chlorine prep alternative)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2KMnO₄ + 16HCl → 2KCl + 2MnCl₂ + 5Cl₂ + 8H₂O",
+      "description": "Purple decolorizes, Cl₂ evolved.",
+      "details": "Green Mn²⁺ solution.",
+      "conditions": "Concentrated HCl",
+      "catalyst": "None",
+      "temperature": "Room temperature–heat",
+      "energy": "Exothermic",
+      "safety": "Cl₂ toxic.",
+      "applications": ["Lab Cl₂ prep"],
+      "compounds": {
+        "reactants": [
+          {"name": "KMnO₄", "formula": "KMnO₄", "color": "#8b5cf6"},
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "Cl₂", "formula": "Cl₂", "color": "#10b981"},
+          {"name": "MnCl₂", "formula": "MnCl₂", "color": "#8b5cf6"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-37",
+      "name": "Ferric Thiocyanate Complex",
+      "type": "complexation",
+      "category": "inorganic",
+      "equation": "Fe³⁺ + SCN⁻ → [Fe(SCN)]²⁺",
+      "description": "Blood-red complex.",
+      "details": "Sensitive test for Fe³⁺.",
+      "conditions": "Acidic aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "N/A",
+      "safety": "Thiocyanate moderate toxicity.",
+      "applications": ["Qualitative test"],
+      "compounds": {
+        "reactants": [
+          {"name": "Fe³⁺", "formula": "Fe³⁺", "color": "#a1a1aa"},
+          {"name": "SCN⁻", "formula": "SCN⁻", "color": "#d1d5db"}
+        ],
+        "products": [{"name": "[Fe(SCN)]²⁺", "formula": "[Fe(SCN)]²⁺", "color": "#ef4444"}]
+      }
+    },
+    {
+      "id": "inorganic-38",
+      "name": "Nessler’s Reagent Test for NH₃",
+      "type": "complexation",
+      "category": "inorganic",
+      "equation": "2K₂HgI₄ + NH₃ + 3KOH → Hg₂NI ↓ + ...",
+      "description": "Brown precipitate.",
+      "details": "Very sensitive for ammonia.",
+      "conditions": "Alkaline",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "N/A",
+      "safety": "Mercury toxic.",
+      "applications": ["NH₃ detection"],
+      "compounds": {
+        "reactants": [
+          {"name": "K₂HgI₄", "formula": "K₂HgI₄", "color": "#d1d5db"},
+          {"name": "NH₃", "formula": "NH₃", "color": "#a78bfa"}
+        ],
+        "products": [{"name": "Hg₂NI", "formula": "Hg₂NI", "color": "#8b4513"}]
+      }
+    },
+    {
+      "id": "inorganic-39",
+      "name": "Iron with CuSO₄ Displacement",
+      "type": "displacement",
+      "category": "inorganic",
+      "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
+      "description": "Blue to green solution, Cu deposit.",
+      "details": "Reactivity series demo.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Mild.",
+      "applications": ["Reactivity demo"],
+      "compounds": {
+        "reactants": [
+          {"name": "Fe", "formula": "Fe", "color": "#a1a1aa"},
+          {"name": "CuSO₄", "formula": "CuSO₄", "color": "#0000ff"}
+        ],
+        "products": [
+          {"name": "FeSO₄", "formula": "FeSO₄", "color": "#8b5cf6"},
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-40",
+      "name": "Passivation of Aluminum",
+      "type": "oxidation",
+      "category": "inorganic",
+      "equation": "2Al + 3O₂ → Al₂O₃ (thin layer)",
+      "description": "Protective oxide layer forms.",
+      "details": "Self-limiting corrosion.",
+      "conditions": "Air exposure",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Safe.",
+      "applications": ["Corrosion resistance"],
+      "compounds": {
+        "reactants": [
+          {"name": "Al", "formula": "Al", "color": "#d1d5db"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "Al₂O₃", "formula": "Al₂O₃", "color": "#d1d5db"}]
+      }
+    },
+    {
+      "id": "inorganic-41",
+      "name": "KMnO₄ + HCl (Chlorine)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2KMnO₄ + 16HCl → 2KCl + 2MnCl₂ + 5Cl₂ + 8H₂O",
+      "description": "Purple decolorizes, Cl₂ evolved.",
+      "details": "Green Mn²⁺.",
+      "conditions": "Concentrated HCl",
+      "catalyst": "None",
+      "temperature": "Room–mild heat",
+      "energy": "Exothermic",
+      "safety": "Cl₂ toxic.",
+      "applications": ["Cl₂ preparation"],
+      "compounds": {
+        "reactants": [
+          {"name": "KMnO₄", "formula": "KMnO₄", "color": "#8b5cf6"},
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "Cl₂", "formula": "Cl₂", "color": "#10b981"},
+          {"name": "MnCl₂", "formula": "MnCl₂", "color": "#8b5cf6"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-42",
+      "name": "KMnO₄ Reduction by Oxalate",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2MnO₄⁻ + 5C₂O₄²⁻ + 16H⁺ → 2Mn²⁺ + 10CO₂ + 8H₂O",
+      "description": "Purple → colorless.",
+      "details": "Titration standard.",
+      "conditions": "Warm acidic",
+      "catalyst": "None",
+      "temperature": "60°C",
+      "energy": "Exothermic",
+      "safety": "Strong oxidant.",
+      "applications": ["Analysis"],
+      "compounds": {
+        "reactants": [
+          {"name": "MnO₄⁻", "formula": "MnO₄⁻", "color": "#8b5cf6"},
+          {"name": "C₂O₄²⁻", "formula": "C₂O₄²⁻", "color": "#d1d5db"}
+        ],
+        "products": [
+          {"name": "Mn²⁺", "formula": "Mn²⁺", "color": "#d1d5db"},
+          {"name": "CO₂", "formula": "CO₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-43",
+      "name": "Dichromate Oxidation of Ethanol",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "3CH₃CH₂OH + Cr₂O₇²⁻ + 8H⁺ → 3CH₃CHO + 2Cr³⁺ + 7H₂O",
+      "description": "Orange → green.",
+      "details": "Primary alcohol to aldehyde.",
+      "conditions": "Acidic, heat",
+      "catalyst": "None",
+      "temperature": "Heat",
+      "energy": "Exothermic",
+      "safety": "Cr(VI) carcinogenic.",
+      "applications": ["Breathalyzer principle"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cr₂O₇²⁻", "formula": "Cr₂O₇²⁻", "color": "#d1d5db"},
+          {"name": "CH₃CH₂OH", "formula": "CH₃CH₂OH", "color": "#60a5fa"}
+        ],
+        "products": [
+          {"name": "Cr³⁺", "formula": "Cr³⁺", "color": "#15803d"},
+          {"name": "CH₃CHO", "formula": "CH₃CHO", "color": "#d1d5db"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-44",
+      "name": "KMnO₄ Titration with Fe²⁺",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O",
+      "description": "Purple → colorless.",
+      "details": "Standard Fe²⁺ determination.",
+      "conditions": "Acidic",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Strong oxidant.",
+      "applications": ["Volumetric analysis"],
+      "compounds": {
+        "reactants": [
+          {"name": "MnO₄⁻", "formula": "MnO₄⁻", "color": "#8b5cf6"},
+          {"name": "Fe²⁺", "formula": "Fe²⁺", "color": "#a1a1aa"}
+        ],
+        "products": [
+          {"name": "Mn²⁺", "formula": "Mn²⁺", "color": "#d1d5db"},
+          {"name": "Fe³⁺", "formula": "Fe³⁺", "color": "#a1a1aa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-45",
+      "name": "Iodometric Liberation (Cu²⁺ + KI)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2Cu²⁺ + 4I⁻ → 2CuI + I₂",
+      "description": "Iodine liberated.",
+      "details": "White CuI precipitate.",
+      "conditions": "Acidic/neutral",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Iodine stains.",
+      "applications": ["Cu²⁺ determination"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cu²⁺", "formula": "Cu²⁺", "color": "#b45309"},
+          {"name": "I⁻", "formula": "I⁻", "color": "#8b5cf6"}
+        ],
+        "products": [
+          {"name": "CuI", "formula": "CuI", "color": "#d1d5db"},
+          {"name": "I₂", "formula": "I₂", "color": "#8b5cf6"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-46",
+      "name": "Ammonium Nitrate Decomposition",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "NH₄NO₃ → N₂O + 2H₂O",
+      "description": "Laughing gas production.",
+      "details": "Gentle heating.",
+      "conditions": "Heat",
+      "catalyst": "None",
+      "temperature": "170–260°C",
+      "energy": "Exothermic",
+      "safety": "Explosive if rapid.",
+      "applications": ["N₂O source"],
+      "compounds": {
+        "reactants": [{"name": "NH₄NO₃", "formula": "NH₄NO₃", "color": "#d1d5db"}],
+        "products": [
+          {"name": "N₂O", "formula": "N₂O", "color": "#60a5fa"},
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-47",
+      "name": "Copper with Concentrated HNO₃",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "Cu + 4HNO₃ → Cu(NO₃)₂ + 2NO₂ + 2H₂O",
+      "description": "Brown NO₂ fumes.",
+      "details": "Vigorous reaction.",
+      "conditions": "Hot concentrated",
+      "catalyst": "None",
+      "temperature": "Hot",
+      "energy": "Exothermic",
+      "safety": "Toxic NO₂.",
+      "applications": ["Demonstration"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"},
+          {"name": "HNO₃", "formula": "HNO₃", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "Cu(NO₃)₂", "formula": "Cu(NO₃)₂", "color": "#0000ff"},
+          {"name": "NO₂", "formula": "NO₂", "color": "#ef4444"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-48",
+      "name": "Limewater Test for CO₂",
+      "type": "precipitation",
+      "category": "inorganic",
+      "equation": "Ca(OH)₂ + CO₂ → CaCO₃ ↓ + H₂O",
+      "description": "Milky precipitate.",
+      "details": "Excess CO₂ redissolves.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Slightly exothermic",
+      "safety": "Mild base.",
+      "applications": ["CO₂ test"],
+      "compounds": {
+        "reactants": [
+          {"name": "Ca(OH)₂", "formula": "Ca(OH)₂", "color": "#d1d5db"},
+          {"name": "CO₂", "formula": "CO₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "CaCO₃", "formula": "CaCO₃", "color": "#ffffff"}]
+      }
+    },
+    {
+      "id": "inorganic-49",
+      "name": "Soda Lime + Na₂CO₃",
+      "type": "precipitation",
+      "category": "inorganic",
+      "equation": "Na₂CO₃ + Ca(OH)₂ → CaCO₃ ↓ + 2NaOH",
+      "description": "White CaCO₃ precipitate.",
+      "details": "Solvay-related reaction.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Alkali.",
+      "applications": ["Caustic soda prep variant"],
+      "compounds": {
+        "reactants": [
+          {"name": "Na₂CO₃", "formula": "Na₂CO₃", "color": "#d1d5db"},
+          {"name": "Ca(OH)₂", "formula": "Ca(OH)₂", "color": "#d1d5db"}
+        ],
+        "products": [
+          {"name": "CaCO₃", "formula": "CaCO₃", "color": "#ffffff"},
+          {"name": "NaOH", "formula": "NaOH", "color": "#fbbf24"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-50",
+      "name": "Ammonia from Ammonium Salt",
+      "type": "decomposition",
+      "category": "inorganic",
+      "equation": "2NH₄Cl + Ca(OH)₂ → 2NH₃ + CaCl₂ + 2H₂O",
+      "description": "Pungent NH₃ gas.",
+      "details": "Classic lab prep.",
+      "conditions": "Heat",
+      "catalyst": "None",
+      "temperature": "Heat",
+      "energy": "Endothermic",
+      "safety": "NH₃ irritating.",
+      "applications": ["NH₃ preparation"],
+      "compounds": {
+        "reactants": [
+          {"name": "NH₄Cl", "formula": "NH₄Cl", "color": "#d1d5db"},
+          {"name": "Ca(OH)₂", "formula": "Ca(OH)₂", "color": "#d1d5db"}
+        ],
+        "products": [
+          {"name": "NH₃", "formula": "NH₃", "color": "#a78bfa"},
+          {"name": "CaCl₂", "formula": "CaCl₂", "color": "#8b5cf6"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-51",
+      "name": "Bromine Water Decolorization",
+      "type": "addition",
+      "category": "inorganic",
+      "equation": "Br₂ + C=C → CBr–CBr",
+      "description": "Red-brown to colorless.",
+      "details": "Test for unsaturation.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Br₂ toxic.",
+      "applications": ["Unsaturation test"],
+      "compounds": {
+        "reactants": [
+          {"name": "Br₂", "formula": "Br₂", "color": "#8b4513"},
+          {"name": "Alkene", "formula": "C=C", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "Dibromide", "formula": "CBr–CBr", "color": "#d1d5db"}]
+      }
+    },
+    {
+      "id": "inorganic-52",
+      "name": "Zn with Cu²⁺ Displacement",
+      "type": "displacement",
+      "category": "inorganic",
+      "equation": "Zn + Cu²⁺ → Zn²⁺ + Cu",
+      "description": "Blue solution decolorizes.",
+      "details": "Red-brown Cu deposit.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Mild.",
+      "applications": ["Reactivity series"],
+      "compounds": {
+        "reactants": [
+          {"name": "Zn", "formula": "Zn", "color": "#a1a1aa"},
+          {"name": "Cu²⁺", "formula": "Cu²⁺", "color": "#b45309"}
+        ],
+        "products": [
+          {"name": "Zn²⁺", "formula": "Zn²⁺", "color": "#a1a1aa"},
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-53",
+      "name": "SO₂ from Cu + H₂SO₄",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "Cu + 2H₂SO₄ → CuSO₄ + SO₂ + 2H₂O",
+      "description": "Pungent SO₂ gas.",
+      "details": "Hot concentrated acid.",
+      "conditions": "Hot concentrated",
+      "catalyst": "None",
+      "temperature": "Hot",
+      "energy": "Exothermic",
+      "safety": "SO₂ toxic.",
+      "applications": ["SO₂ prep"],
+      "compounds": {
+        "reactants": [
+          {"name": "Cu", "formula": "Cu", "color": "#b45309"},
+          {"name": "H₂SO₄", "formula": "H₂SO₄", "color": "#ef4444"}
+        ],
+        "products": [
+          {"name": "CuSO₄", "formula": "CuSO₄", "color": "#0000ff"},
+          {"name": "SO₂", "formula": "SO₂", "color": "#ef4444"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-54",
+      "name": "H₂O₂ Decomposition with KI",
+      "type": "catalysis",
+      "category": "inorganic",
+      "equation": "2H₂O₂ → 2H₂O + O₂",
+      "description": "Foaming catalyzed by iodide.",
+      "details": "Rapid oxygen evolution.",
+      "conditions": "Room temperature",
+      "catalyst": "KI",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Oxidant.",
+      "applications": ["Demonstration"],
+      "compounds": {
+        "reactants": [{"name": "H₂O₂", "formula": "H₂O₂", "color": "#60a5fa"}],
+        "products": [
+          {"name": "H₂O", "formula": "H₂O", "color": "#60a5fa"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-55",
+      "name": "KMnO₄ Oxidation of I⁻",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "2MnO₄⁻ + 10I⁻ + 16H⁺ → 2Mn²⁺ + 5I₂ + 8H₂O",
+      "description": "Purple → colorless, brown I₂.",
+      "details": "Iodine liberation.",
+      "conditions": "Acidic",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Exothermic",
+      "safety": "Strong oxidant.",
+      "applications": ["I⁻ detection"],
+      "compounds": {
+        "reactants": [
+          {"name": "MnO₄⁻", "formula": "MnO₄⁻", "color": "#8b5cf6"},
+          {"name": "I⁻", "formula": "I⁻", "color": "#8b5cf6"}
+        ],
+        "products": [
+          {"name": "Mn²⁺", "formula": "Mn²⁺", "color": "#d1d5db"},
+          {"name": "I₂", "formula": "I₂", "color": "#8b5cf6"}
+        ]
+      }
+    },
+    {
+      "id": "inorganic-56",
+      "name": "Sodium with Excess Oxygen",
+      "type": "combination",
+      "category": "inorganic",
+      "equation": "2Na + O₂ → Na₂O₂",
+      "description": "Forms sodium peroxide.",
+      "details": "Yellow solid (unlike Li).",
+      "conditions": "Heat in air",
+      "catalyst": "None",
+      "temperature": "Heat",
+      "energy": "Exothermic",
+      "safety": "Peroxide is strong oxidant.",
+      "applications": ["Peroxide prep"],
+      "compounds": {
+        "reactants": [
+          {"name": "Na", "formula": "Na", "color": "#f59e0b"},
+          {"name": "O₂", "formula": "O₂", "color": "#60a5fa"}
+        ],
+        "products": [{"name": "Na₂O₂", "formula": "Na₂O₂", "color": "#d1d5db"}]
+      }
+    },
+    {
+      "id": "inorganic-57",
+      "name": "Lead Acetate + H₂S",
+      "type": "precipitation",
+      "category": "inorganic",
+      "equation": "Pb(CH₃COO)₂ + H₂S → PbS ↓ + 2CH₃COOH",
+      "description": "Black lead sulfide precipitate.",
+      "details": "Test for H₂S or Pb²⁺.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "Slightly exothermic",
+      "safety": "Lead and H₂S toxic.",
+      "applications": ["Qualitative test"],
+      "compounds": {
+        "reactants": [
+          {"name": "Pb(CH₃COO)₂", "formula": "Pb(CH₃COO)₂", "color": "#d1d5db"},
+          {"name": "H₂S", "formula": "H₂S", "color": "#eab308"}
+        ],
+        "products": [{"name": "PbS", "formula": "PbS", "color": "#000000"}]
+      }
+    },
+    {
+      "id": "inorganic-58",
+      "name": "Silver Mirror Test (Tollens)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "[Ag(NH₃)₂]⁺ + RCHO → Ag ↓ + ...",
+      "description": "Silver mirror on glass.",
+      "details": "Test for aldehydes.",
+      "conditions": "Ammoniacal AgNO₃",
+      "catalyst": "None",
+      "temperature": "Warm",
+      "energy": "Exothermic",
+      "safety": "Explosive if dry.",
+      "applications": ["Aldehyde test"],
+      "compounds": {
+        "reactants": [{"name": "[Ag(NH₃)₂]⁺", "formula": "[Ag(NH₃)₂]⁺", "color": "#d1d5db"}],
+        "products": [{"name": "Ag", "formula": "Ag", "color": "#d1d5db"}]
+      }
+    },
+    {
+      "id": "inorganic-59",
+      "name": "Fehling’s Test (Cu²⁺ reduction)",
+      "type": "redox",
+      "category": "inorganic",
+      "equation": "Cu²⁺ + RCHO → Cu₂O ↓ + ...",
+      "description": "Red Cu₂O precipitate.",
+      "details": "Test for reducing sugars/aldehydes.",
+      "conditions": "Alkaline, heat",
+      "catalyst": "None",
+      "temperature": "Heat",
+      "energy": "Exothermic",
+      "safety": "Alkaline tartrate.",
+      "applications": ["Reducing sugar test"],
+      "compounds": {
+        "reactants": [{"name": "Cu²⁺", "formula": "Cu²⁺", "color": "#b45309"}],
+        "products": [{"name": "Cu₂O", "formula": "Cu₂O", "color": "#ff6347"}]
+      }
+    },
+    {
+      "id": "inorganic-60",
+      "name": "Blue Litmus + HCl",
+      "type": "acid-base",
+      "category": "inorganic",
+      "equation": "Litmus (blue) + H⁺ → Litmus (red)",
+      "description": "Color change indicator.",
+      "details": "Simple acid test.",
+      "conditions": "Aqueous",
+      "catalyst": "None",
+      "temperature": "Room temperature",
+      "energy": "N/A",
+      "safety": "Corrosive acid.",
+      "applications": ["Acid detection"],
+      "compounds": {
+        "reactants": [
+          {"name": "Blue Litmus", "formula": "Litmus", "color": "#0000ff"},
+          {"name": "HCl", "formula": "HCl", "color": "#ef4444"}
+        ],
+        "products": [{"name": "Red Litmus", "formula": "Litmus", "color": "#ff0000"}]
+      }
     }
   ]
 }

@@ -207,7 +207,7 @@ function Home() {
       className="home"
       style={{
         position: 'relative',
-        minHeight: '216vh',
+        minHeight: '231.4vh',
         background: 'radial-gradient(circle at 30% 20%, #0f172a 0%, #020617 70%)',
         color: '#f1f5f9',
         overflow: 'hidden'

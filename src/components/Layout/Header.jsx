@@ -41,7 +41,7 @@ function Header() {
           </div>
           <div className="logo-text">
             <div className="title-gradient">
-              Chemical<span className="title-highlight">Reaction</span>
+              Chemical<span className="title-highlight">Odyssey</span>
             </div>
             <div className="subtitle-gradient">
               Interactive Chemistry Experience

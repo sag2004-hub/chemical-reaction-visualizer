@@ -497,13 +497,13 @@ function OrganicReactions() {
           <motion.div 
             style={{
               background: 'rgba(30, 41, 59, 0.5)',
-              borderRadius: '20px',
-              border: '1px solid rgba(100, 180, 255, 0.15)',
-              backdropFilter: 'blur(12px)',
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
+    borderRadius: '20px',
+    border: '1px solid rgba(100, 180, 255, 0.15)',
+    backdropFilter: 'blur(12px)',
+    padding: '2rem 2rem 0.5rem 2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
             }}
             variants={itemVariants}
           >
@@ -511,8 +511,8 @@ function OrganicReactions() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '1.5rem',
-              paddingBottom: '1.5rem',
+              marginBottom: '0.5rem',
+              paddingBottom: '0.5rem',
               borderBottom: '1px solid rgba(100, 180, 255, 0.1)'
             }}>
               <h3 style={{
@@ -522,7 +522,8 @@ function OrganicReactions() {
                 margin: 0,
                 display: 'flex',
                 alignItems: 'center',
-                gap: '1rem'
+                gap: '1rem',
+                minHeight: '70px'
               }}>
                 <Eye size={22} color="#60a5fa" />
                 Available Reactions
@@ -648,7 +649,7 @@ function OrganicReactions() {
               borderRadius: '20px',
               border: '2px solid rgba(96, 165, 250, 0.25)',
               backdropFilter: 'blur(12px)',
-              padding: '2rem',
+              padding: '1rem',
               display: 'flex',
               flexDirection: 'column',
               boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
@@ -661,8 +662,8 @@ function OrganicReactions() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '1.5rem',
-              paddingBottom: '1.5rem',
+              marginBottom: '1rem',
+              paddingBottom: '1rem',
               borderBottom: '1px solid rgba(100, 180, 255, 0.1)'
             }}>
               <div>
@@ -682,7 +683,7 @@ function OrganicReactions() {
                   <p style={{
                     fontSize: '0.875rem',
                     color: '#cbd5e1',
-                    marginTop: '0.4rem',
+                    marginTop: '0.1rem',
                     marginBottom: 0,
                     opacity: 0.9
                   }}>
@@ -695,18 +696,18 @@ function OrganicReactions() {
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '1rem'
+                  gap: '0.4rem'
                 }}>
                   <div style={{
                     background: `${typeColors[selectedReaction.type]}20`,
                     color: typeColors[selectedReaction.type],
-                    padding: '0.8rem 1.2rem',
+                    padding: '0.2rem 0.5rem',
                     borderRadius: '20px',
                     fontSize: '0.875rem',
                     fontWeight: 700,
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.6rem',
+                    gap: '0.2rem',
                     border: `1px solid ${typeColors[selectedReaction.type]}40`
                   }}>
                     {getTypeIcon(selectedReaction.type)}
@@ -733,117 +734,15 @@ function OrganicReactions() {
   {selectedReaction ? (
     <>
       {/* Interactive Visualization Badge - ENHANCED */}
-      <motion.div 
-        style={{
-          position: 'absolute',
-          top: '2rem', // CHANGED: Increased from 1.5rem
-          left: '2rem', // CHANGED: Increased from 1.5rem
-          background: 'rgba(96, 165, 250, 0.15)', // CHANGED: Slightly darker background
-          border: '1px solid rgba(96, 165, 250, 0.4)', // CHANGED: Stronger border
-          padding: '0.8rem 1.5rem', // CHANGED: Larger padding
-          borderRadius: '12px',
-          fontSize: '1rem', // CHANGED: Larger font size
-          fontWeight: 600,
-          color: '#60a5fa',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.8rem', // CHANGED: Larger gap
-          zIndex: 2,
-          backdropFilter: 'blur(10px)' // NEW: Added blur effect
-        }}
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <AlertCircle size={16} /> {/* CHANGED: Larger icon */}
-        Interactive Visualization
-      </motion.div>
+      
       
       {/* Reaction Details Panel - NEW */}
-      <motion.div 
-        style={{
-          position: 'absolute',
-          top: '2rem', // NEW
-          right: '2rem', // NEW
-          background: 'rgba(15, 23, 42, 0.85)', // NEW
-          backdropFilter: 'blur(10px)', // NEW
-          border: '1px solid rgba(100, 180, 255, 0.2)', // NEW
-          borderRadius: '12px', // NEW
-          padding: '1.5rem', // NEW
-          maxWidth: '300px', // NEW
-          zIndex: 2, // NEW
-          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)' // NEW
-        }}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.4 }}
-      >
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.8rem',
-          marginBottom: '1rem'
-        }}>
-          <BookOpen size={18} color="#60a5fa" />
-          <h4 style={{
-            margin: 0,
-            fontSize: '1rem',
-            color: '#e2e8f0',
-            fontWeight: 600
-          }}>
-            Reaction Details
-          </h4>
-        </div>
-        
-        <div style={{
-          fontSize: '0.875rem',
-          color: '#cbd5e1',
-          lineHeight: 1.6
-        }}>
-          <div style={{ 
-            marginBottom: '0.6rem',
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}>
-            <span style={{ color: '#94a3b8' }}>Type:</span>
-            <span style={{ 
-              color: typeColors[selectedReaction.type],
-              fontWeight: 600
-            }}>
-              {selectedReaction.type}
-            </span>
-          </div>
-          
-          <div style={{ 
-            marginBottom: '0.6rem',
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}>
-            <span style={{ color: '#94a3b8' }}>Complexity:</span>
-            <span style={{ fontWeight: 500 }}>{selectedReaction.complexity}</span>
-          </div>
-          
-          <div style={{ marginBottom: '1rem', paddingTop: '0.5rem', borderTop: '1px solid rgba(100, 180, 255, 0.1)' }}>
-            <span style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>Key Features:</span>
-            <ul style={{ 
-              margin: 0, 
-              paddingLeft: '1.2rem',
-              fontSize: '0.8rem',
-              color: '#a5b4fc'
-            }}>
-              <li>Step-by-step mechanism</li>
-              <li>Bond formation/breakage</li>
-              <li>Electron flow animation</li>
-              <li>3D molecular view</li>
-            </ul>
-          </div>
-        </div>
-      </motion.div>
+      
       
       {/* Reaction Visualizer Container - ENHANCED */}
       <div style={{
-        width: '90%', // NEW: Take more width
-        height: '80%', // NEW: Take more height
+        width: '60%', // NEW: Take more width
+        height: '60%', // NEW: Take more height
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -852,82 +751,15 @@ function OrganicReactions() {
         <ReactionVisualizer 
           reaction={selectedReaction} 
           style={{
-            width: '100%',
-            height: '100%'
+            width: '10%',
+            height: '10%'
           }}
         />
       </div>
       
       {/* Controls Panel - ENHANCED */}
-      <motion.div 
-        style={{
-          position: 'absolute',
-          bottom: '2rem', // CHANGED: Increased from 1.5rem
-          right: '2rem', // CHANGED: Increased from 1.5rem
-          background: 'rgba(30, 41, 59, 0.8)', // CHANGED: Darker background
-          backdropFilter: 'blur(10px)', // NEW: Added blur
-          padding: '0.8rem 1.2rem', // CHANGED: Larger padding
-          borderRadius: '10px',
-          border: '1px solid rgba(100, 180, 255, 0.2)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem', // NEW: Added gap
-          fontSize: '0.875rem', // CHANGED: Larger font
-          color: '#94a3b8'
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}>
-          <Zap size={14} color="#60a5fa" />
-          <span>Real-time animation</span>
-        </div>
-        
-        {/* NEW: Speed control */}
-        <div style={{
-          height: '20px',
-          width: '1px',
-          background: 'rgba(100, 180, 255, 0.2)'
-        }} />
-        
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}>
-          <Play size={14} color="#34d399" />
-          <span>Click to play</span>
-        </div>
-      </motion.div>
       
       {/* NEW: Progress Indicator */}
-      <motion.div 
-        style={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '2rem',
-          background: 'rgba(30, 41, 59, 0.8)',
-          backdropFilter: 'blur(10px)',
-          padding: '0.8rem 1.2rem',
-          borderRadius: '10px',
-          border: '1px solid rgba(100, 180, 255, 0.2)',
-          fontSize: '0.875rem',
-          color: '#94a3b8'
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Clock size={14} color="#c084fc" />
-          <span>Mechanism: 4 steps</span>
-        </div>
-      </motion.div>
     </>
   ) : (
     <motion.div 
